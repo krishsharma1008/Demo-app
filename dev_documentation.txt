@@ -1,3 +1,9 @@
+2025-08-14 07:46:59 UTC
+- Prepared repository for public demo push.
+- Added .gitignore rules for Pods, Xcode workspace, and large on-device model assets to avoid GitHub >100MB limit.
+- Ensured secrets safety by ignoring .env.
+- Committed with DCO sign-off and pushed branch 'main' to origin https://github.com/krishsharma1008/Demo-app.git.
+- Note: DeliteAI SDK is integrated and initialized in `NimbleEdgeAssistantApp.swift`, chat currently uses a Swift fallback for stability until inference wiring via `NimbleNetApi.runMethod` is hardened.
 === DeliteAI iOS SDK - Critical Issues Resolution ===
 Date: 2025-07-31 18:15:30 EST
 Engineer: Cascade AI Assistant

@@ -12,3 +12,6 @@ NimbleEdgeAssistant.xcworkspace/
 # Ignore large model assets to keep repo under GitHub size limits
 NimbleEdgeAssistant.app/**/Models/**
 NimbleEdgeAssistant.app/**/Assets/Models/**
+
+# Secrets
+.env
