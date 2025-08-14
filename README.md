@@ -80,6 +80,14 @@ Visit the [assistant](https://github.com/NimbleEdge/assistant) repo to see it al
 
 Explore our documentation at [deliteai.dev](https://deliteai.dev/).
 
+## Demo App: Online and Offline Modes
+
+- **Dual functionality**: The demo app supports both online and offline modes.
+  - **Offline (on-device)**: DeliteAI SDK is integrated and initialized for on-device processing.
+  - **Online (temporary fallback)**: AI responses are currently served via the Sarvam API.
+- **Language capabilities**: Multilingual support is available via the Sarvam API.
+- **Current status**: Using Sarvam for responses "till i figure out hoe to tokenise the open source model and get it running offline".
+
 ## Community engagement
 
 We welcome any feedback or suggestions - please join our

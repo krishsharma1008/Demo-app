@@ -6,6 +6,9 @@
 - Note: DeliteAI SDK is integrated and initialized in `NimbleEdgeAssistantApp.swift`, chat currently uses a Swift fallback for stability until inference wiring via `NimbleNetApi.runMethod` is hardened.
 2025-08-14 07:51:38 UTC
 - Removed editor-specific Cursor files from Git tracking (`.cursorrules*`, `CURSOR_RULES.md`) and added ignore patterns to prevent re-adding. Committed with DCO sign-off and pushed to `main`.
+2025-08-14 08:05:00 UTC
+- Updated root `README.md` to document demo app dual functionality (online/offline), language capabilities, and note that Sarvam API is used for AI responses for now — explicitly: "till i figure out hoe to tokenise the open source model and get it running offline".
+- Preparing a signed commit for this documentation-only change.
 === DeliteAI iOS SDK - Critical Issues Resolution ===
 Date: 2025-07-31 18:15:30 EST
 Engineer: Cascade AI Assistant
