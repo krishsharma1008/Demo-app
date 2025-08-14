@@ -7,6 +7,6 @@
 import Foundation
 
 class BundleConfig {
-    public static var clientSecret: String = Bundle.main.infoDictionary?["CLIENT_SECERT"] as? String ?? ""
+    public static var clientSecret: String = Bundle.main.infoDictionary?["CLIENT_SECRET"] as? String ?? ""
     public static var host: String = Bundle.main.infoDictionary?["HOST_URL"] as? String ?? ""
 }

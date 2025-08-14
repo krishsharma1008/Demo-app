@@ -5,13 +5,13 @@
  */
 
 #import "NimbleNetController.h"
-#import "nimblenet.h"
+#import "include/nimblenet.h"
 #import <DeliteAI/FunctionPointersImpl.h>
 #import <Network/Network.h>
 #import <DeliteAI/DeliteAI-Swift.h>
-#import "executor_structs.h"
-#import "nimble_net_util.hpp"
-#import "nimblejson.hpp"
+#import "include/executor_structs.h"
+// #import "include/nimble_net_util.hpp" // Removed to avoid conflicts with FunctionPointersImpl.h definitions
+#import "include/nimblejson.hpp"
 #import <sys/utsname.h>
 #import "InputConverter.h"
 #import "OutputConverter.h"
@@ -37,45 +37,45 @@ typedef struct SinglePreprocessorInput SinglePreprocessorInput;
 -(NSDictionary*)initialize_nimblenet_controller:(NSString*)configJson assetsJson:(NSString*)assetsJson{
     NSLog(@"init called  detected!");
     initClientFunctionPointers();
-    
+
     NSString* nimbleSdkDirectoryPath = getNimbleSdkDirectoryPath();
     NSDictionary *sizes = getInternalStorageFolderSizes(nimbleSdkDirectoryPath);
     NSError *directorySizeError;
     NSData *directorySizeJsonData = [NSJSONSerialization dataWithJSONObject:sizes options:0 error:&directorySizeError];
-    
+
     NSString* nimbleSdkDirectory = createNimbleSdkDirectory();
-    
+
     configJson = setInternalDeviceIdInConfig(configJson);
-    
+
     if(configJson==nil){
         return populateErrorReturnObject(500, @"Invalid config json");
     }
-    
+
     if(nimbleSdkDirectory!=nil){
         // Subscribe to internet connection notifications.
         self.pathMonitor = nw_path_monitor_create();
-        
+
         __weak typeof(self) weakSelf = self;
         nw_path_monitor_set_update_handler(self.pathMonitor, ^(nw_path_t  _Nonnull path) {
-            
+
             __strong typeof(weakSelf) strongSelf = weakSelf;
-            
+
             if (strongSelf) {
-                
+
                 nw_path_status_t status = nw_path_get_status(path);
-                
+
                 // Check the path status
                 if (status == nw_path_status_satisfied) {
                     [self internet_switched_on_controller];
                 } else {
                     NSLog(@"No internet connection");
                 }
-                
+
             }
-            
+
         });
         nw_path_monitor_start(self.pathMonitor);
-        
+
         if (assetsJson != nil) {
                     NimbleNetStatus* status = load_modules([assetsJson UTF8String], [nimbleSdkDirectory UTF8String]);
                     if (status != nil) {
@@ -90,24 +90,24 @@ typedef struct SinglePreprocessorInput SinglePreprocessorInput;
                         return res;
                     }
                 }
-        
+
         NimbleNetStatus* status = initialize_nimblenet([configJson UTF8String], [nimbleSdkDirectory UTF8String]);
         self.hardwareInfo = [[HardwareInfo alloc] init];
         NSString *staticMetricsJsonString = [self.hardwareInfo getStaticDeviceMetrics];
-        
+
         if(status == NULL){
             if (!directorySizeError){
                 NSString *jsonString = [[NSString alloc] initWithData:directorySizeJsonData encoding:NSUTF8StringEncoding];
                 const char *jsonCString = [jsonString UTF8String];
                 write_metric(INTERNALSTORAGEMETRICS, jsonCString);
             }
-            
+
             const char *metricsCString = [staticMetricsJsonString UTF8String];
             [self write_metric_controller:STATICDEVICEMETRICS metricJson:metricsCString];
         }
-        
+
         [self initCrashReporter];
-        
+
         NSDictionary* res = @{
             @"status":@(status==NULL?true:false),
             @"data":[NSNull null],
@@ -116,15 +116,15 @@ typedef struct SinglePreprocessorInput SinglePreprocessorInput;
                 @"message":@(status->message)
             }
         };
-        
+
         if(status!=NULL){
             deallocate_nimblenet_status(status);
-            
+
         }
         return res;
-        
+
     }
-    
+
     return populateErrorReturnObject(500, @"Error creating directory");
 }
 -(void)restartSession{
@@ -136,14 +136,14 @@ typedef struct SinglePreprocessorInput SinglePreprocessorInput;
 -(void)restartSessionWithId:(NSString*)sessionId{
     const char *csessionId = [sessionId UTF8String];
     update_session(csessionId);
-    
+
 };
 
 NSDictionary* convertCUserEventsDataToNSDictionary(CUserEventsData* data) {
-    
+
     NSString *eventType = data->eventType ? [NSString stringWithUTF8String:data->eventType] : nil;
     NSString *eventJsonString = data->eventJsonString ? [NSString stringWithUTF8String:data->eventJsonString] : nil;
-    
+
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     if (eventType) {
         dict[@"eventType"] = eventType;
@@ -163,7 +163,7 @@ NSDictionary* convertCUserEventsDataToNSDictionary(CUserEventsData* data) {
         userEventdataDict = convertCUserEventsDataToNSDictionary(&cUserEventsData);
         deallocate_c_userevents_data(&cUserEventsData);
     }
-    
+
     NSDictionary* res = @{
         @"status":@(status==NULL?true:false),
         @"data": (status != NULL) ? [NSNull null] : userEventdataDict,
@@ -172,28 +172,40 @@ NSDictionary* convertCUserEventsDataToNSDictionary(CUserEventsData* data) {
             @"message":@(status->message)
         }
     };
-    
+
     deallocate_nimblenet_status(status);
-    
+
     return res;
 }
 
 -(NSDictionary*)is_ready_controller{
     NimbleNetStatus* status = is_ready();
-    
-    NSDictionary* res = @{
-        @"status":@(status==NULL?true:false),
-        @"data":[NSNull null],
-        @"error":status==NULL?[NSNull null]:@{
-            @"code":@(status->code),
-            @"message":@(status->message)
-        }
-    };
-    
-    if(status!=NULL){
+
+    // Some native builds return sentinel values like 0x1 instead of NULL when ready.
+    // Any pointer value in low address space (< 0x1000) is treated as a sentinel.
+    BOOL sdkReady = ((uintptr_t)status < 0x1000);
+
+    NSDictionary* res;
+    if(sdkReady) {
+        // SDK is ready - no error
+        res = @{
+            @"status":@(true),
+            @"data":[NSNull null],
+            @"error":[NSNull null]
+        };
+    } else {
+        // SDK has error
+        res = @{
+            @"status":@(false),
+            @"data":[NSNull null],
+            @"error":@{
+                @"code":@(status->code),
+                @"message":@(status->message)
+            }
+        };
         deallocate_nimblenet_status(status);
     }
-    
+
     return res;
 };
 
@@ -202,13 +214,13 @@ NSDictionary* convertCUserEventsDataToNSDictionary(CUserEventsData* data) {
         PLCrashReporterConfig *config = [[PLCrashReporterConfig alloc] initWithSignalHandlerType: PLCrashReporterSignalHandlerTypeBSD
                                                                            symbolicationStrategy: PLCrashReporterSymbolicationStrategyAll];
         PLCrashReporter *crashReporter = [[PLCrashReporter alloc] initWithConfiguration: config];
-        
+
         NSError *error;
         if (![crashReporter enableCrashReporterAndReturnError: &error]) {
             NSLog(@"Warning: Could not enable crash reporter: %@", error);
             return;
         }
-        
+
         if ([crashReporter hasPendingCrashReport]) {
             NSError *error;
             NSData *data = [crashReporter loadPendingCrashReportDataAndReturnError: &error];
@@ -216,14 +228,14 @@ NSDictionary* convertCUserEventsDataToNSDictionary(CUserEventsData* data) {
                 NSLog(@"Failed to load crash report data: %@", error);
                 return;
             }
-            
+
             PLCrashReport *report = [[PLCrashReport alloc] initWithData: data error: &error];
             if (report == nil) {
                 NSLog(@"Failed to parse crash report: %@", error);
                 return;
             }
             NSString *text = [PLCrashReportTextFormatter stringValueForCrashReport: report withTextFormat: PLCrashReportTextFormatiOS];
-            
+
             [self parseCrashReportwithKeyword:text keyword:@"NimbleNetiOS"];
             [crashReporter purgePendingCrashReport];
         }
@@ -234,10 +246,10 @@ NSDictionary* convertCUserEventsDataToNSDictionary(CUserEventsData* data) {
     NSMutableString *result = [NSMutableString string];
     NSNumber *crashedThreadNumber = nil;
     NSArray *lines = [crashLog componentsSeparatedByString:@"\n"];
-    
+
     BOOL metadataExtracted = NO;
     NSMutableString *metadata = [NSMutableString string];
-    
+
     for (NSString *line in lines) {
         if ([line containsString:@"Crashed Thread:"]) {
             metadataExtracted = YES;
@@ -246,10 +258,10 @@ NSDictionary* convertCUserEventsDataToNSDictionary(CUserEventsData* data) {
         [metadata appendString:line];
         [metadata appendString:@"\n"];
     }
-    
+
     [result appendString:metadata];
     [result appendString:@"\n"];
-    
+
     for (NSString *line in lines) {
         if ([line containsString:@"Crashed Thread:"]) {
             NSString *threadNumString = [[line componentsSeparatedByString:@"Crashed Thread:"].lastObject stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
@@ -259,24 +271,24 @@ NSDictionary* convertCUserEventsDataToNSDictionary(CUserEventsData* data) {
             }
         }
     }
-    
-    
+
+
     BOOL isCrashedThread = NO;
     NSString *threadPrefix = [NSString stringWithFormat:@"Thread %@", crashedThreadNumber];
-    
+
     for (NSString *line in lines) {
         if ([line containsString:threadPrefix]) {
             isCrashedThread = YES;
         } else if (isCrashedThread && ([line hasPrefix:@"Thread"] || [line hasPrefix:@"Binary Images:"])) {
             isCrashedThread = NO;
         }
-        
+
         if (isCrashedThread && [line containsString:keyword]) {
             [result appendString:line];
             [result appendString:@"\n"];
         }
     }
-    
+
     if (result.length == 0 || [result isEqualToString:[NSString stringWithFormat:@"%@\n", metadata]]) {
         return [NSString stringWithFormat:@"%@\nNo lines with the keyword '%@' found in the crashed thread.", metadata, keyword];
     }
@@ -290,22 +302,22 @@ NSDictionary* convertCUserEventsDataToNSDictionary(CUserEventsData* data) {
     NSString *exceptionType = nil;
     NSString *exceptionCode = nil;
     NSMutableArray<NSString *> *backtrace = [NSMutableArray array];
-    
+
     BOOL isBacktrace = NO;
-    
+
     for (NSString *line in lines) {
         if ([line hasPrefix:@"Date/Time:"]) {
             dateTime = [[line substringFromIndex:[@"Date/Time:" length]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            
+
             // Remove the "+00" time zone part
             NSRange timeZoneRange = [dateTime rangeOfString:@" +0000"];
             if (timeZoneRange.location != NSNotFound) {
                 dateTime = [dateTime stringByReplacingCharactersInRange:timeZoneRange withString:@""];
             }
-            
+
             // Append .000 for milliseconds
             dateTime = [dateTime stringByAppendingString:@".000"];
-            
+
         } else if ([line hasPrefix:@"Exception Type:"]) {
             exceptionType = [[line substringFromIndex:[@"Exception Type:" length]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         } else if ([line hasPrefix:@"Exception Codes:"]) {
@@ -317,24 +329,24 @@ NSDictionary* convertCUserEventsDataToNSDictionary(CUserEventsData* data) {
             // Use a regex to check if the line contains an address or starts with a number
             NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"^(\\d+|0x[0-9A-Fa-f]+)" options:0 error:nil];
             NSRange range = [regex rangeOfFirstMatchInString:line options:0 range:NSMakeRange(0, line.length)];
-            
+
             if (range.location != NSNotFound) {
                 [backtrace addObject:[line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
             }
         }
     }
-    
+
     if (!dateTime || !exceptionType || !exceptionCode) {
         return nil;
     }
-    
+
     NSString *signalCode = exceptionType;
     NSString *errorCode = exceptionCode;
     NSString *backtraceString = [backtrace componentsJoinedByString:@"\\n"];
-    
+
     NSString *output = [NSString stringWithFormat:@"METRICS::: %@ ::: crash ::: {\"errorCode\":\"%@\",\"backtrace\":\"%@\",\"signalCode\":\"%@\"}",
                         dateTime, errorCode, backtraceString, signalCode];
-    
+
     const char *cString = [output UTF8String];
     send_crash_log(cString);
     return output;
@@ -359,21 +371,21 @@ NSDictionary* convertCUserEventsDataToNSDictionary(CUserEventsData* data) {
 -(NSDictionary*)run_task_controller:(NSString *)taskName
                modelInputsWithShape:(NSDictionary *)modelInputsWithShape
 {
-    
+
     void* json_alloc = create_json_allocator();
     NSMutableArray<CUserInputWrapper *> *userInputArray = [NSMutableArray array];
-    
+
     NSUInteger modelInputsLength = [modelInputsWithShape count];
-    
-    
+
+
     CTensors req;
     CTensors ret;
     req.numTensors = modelInputsLength;
     req.tensors = (CTensor*)malloc((req.numTensors) * sizeof(CTensor));
-    
-    
+
+
     //model input transformer
-    
+
     NSArray *keys = modelInputsWithShape.allKeys;
     for (NSUInteger index = 0; index < keys.count; index++) {
         NSString *inputName = keys[index];
@@ -389,20 +401,20 @@ NSDictionary* convertCUserEventsDataToNSDictionary(CUserEventsData* data) {
             for (NSUInteger i = 0; i < shapeArrayLength; i++) {
                 int64ShapeArray[i] = [(NSNumber*)modelInputObjectShape[i] longLongValue];
             }
-            
+
             NSArray* arrayData = modelInputObjectData[@"data"];
             inputDataType = [modelInputObjectData[@"type"] intValue];
             NSUInteger arrayLength = [arrayData count];
             voidCastedData = convertArraytoVoidPointerWithJsonAlloc(arrayData, arrayLength, inputDataType,json_alloc);
-            
+
         }
         else{
             id data = modelInputObjectData[@"data"];
             inputDataType = [modelInputObjectData[@"type"] intValue];
             voidCastedData = convertSingularInputtoVoidPointer(data, inputDataType,json_alloc);
         }
-        
-        
+
+
         if(voidCastedData==nil){
             freeCTensors(&req,index);
             if (int64ShapeArray != NULL) {
@@ -412,14 +424,14 @@ NSDictionary* convertCUserEventsDataToNSDictionary(CUserEventsData* data) {
             deallocate_json_allocator(json_alloc);
             return populateErrorReturnObject(5000,@"Datatype not yet supported");
         }
-        
+
         req.tensors[index].name = strdup([inputName UTF8String]);
         req.tensors[index].data = voidCastedData;
         req.tensors[index].dataType = inputDataType;
         req.tensors[index].shape = int64ShapeArray;
         req.tensors[index].shapeLength = shapeArrayLength;
     }
-    
+
     CFTimeInterval startTime = CACurrentMediaTime();
     NimbleNetStatus *nimbleNetStatus = run_method([taskName UTF8String], req, &ret);
     if (nimbleNetStatus == NULL) {
@@ -428,25 +440,42 @@ NSDictionary* convertCUserEventsDataToNSDictionary(CUserEventsData* data) {
         const char *cString = [taskName UTF8String];
         write_run_method_metric(cString, elapsedTimeinMicro);
     }
-    
+
     bool status = false;
-    
+
     if(nimbleNetStatus==NULL){
         status = true;
     }
-    
-    NSDictionary *output = convertCTensorsToNSDictionary(nimbleNetStatus,ret,json_alloc);
-    
-    
+
+    NSDictionary *output;
+
+    // Guard: runtime reported success but gave no outputs → fabricate error dictionary
+    if (nimbleNetStatus == NULL && (ret.numTensors == 0 || ret.tensors == NULL)) {
+        // clean allocations made so far
+        freeCTensors(&req, req.numTensors);
+        if (ret.tensors != NULL) {
+            deallocate_output_memory2(&ret);
+        }
+        deallocate_json_allocator(json_alloc);
+
+        return populateErrorReturnObject(9999, @"Runtime returned zero outputs");
+    }
+
+    output = convertCTensorsToNSDictionary(nimbleNetStatus, ret, json_alloc);
+
+
     freeCTensors(&req,req.numTensors);
-    
+
     if(nimbleNetStatus!=NULL){
+        // Free error status object returned by runtime
         deallocate_nimblenet_status(nimbleNetStatus);
+    } else {
+        // Only deallocate ret if library actually allocated output tensors
+        if(ret.numTensors > 0 && ret.tensors != NULL){
+            deallocate_output_memory2(&ret);
+        }
     }
-    else{
-        deallocate_output_memory2(&ret);
-    }
-    
+
     deallocate_json_allocator(json_alloc);
     return output;
 }
@@ -459,13 +488,13 @@ NSDictionary* convertCUserEventsDataToNSDictionary(CUserEventsData* data) {
 //private functions
 void freeCTensor(CTensor* tensor){
     if (tensor->dataType == STRING){
-        
+
         int totalArrayLength = 1;
-        
+
         for (int j = 0; j < tensor->shapeLength; j++) {
             totalArrayLength*=tensor->shape[j];
         }
-        
+
         for(int k = 0; k<totalArrayLength;k++ ){
             char ** stringArray = (char**) (tensor->data);
             free(stringArray[k]);
@@ -474,7 +503,7 @@ void freeCTensor(CTensor* tensor){
     } else if (tensor->dataType != JSON && tensor->dataType != JSON_ARRAY){
         free(tensor->data);
     }
-    
+
     if (tensor->shape != NULL) {
         free(tensor->shape);
     }
@@ -493,12 +522,12 @@ NSString *getNimbleSdkDirectoryPath(void) {
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *subdirectory = nimbleSDKFolder;
     NSString *directoryPath = [documentsDirectory stringByAppendingPathComponent:subdirectory];
-    
+
     return directoryPath;
 }
 
 NSString *createNimbleSdkDirectory(void) {
-    
+
     NSString *directoryPath = getNimbleSdkDirectoryPath();
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if (![fileManager fileExistsAtPath:directoryPath]) {
@@ -509,7 +538,7 @@ NSString *createNimbleSdkDirectory(void) {
     } else {
         return directoryPath;
     }
-    
+
     return nil;
 }
 
@@ -519,15 +548,15 @@ unsigned long long folderSizeAtPath(NSString *folderPath) {
     unsigned long long totalFolderSize = 0;
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSArray *filesArray = [fileManager subpathsOfDirectoryAtPath:folderPath error:nil];
-    
+
     if (!filesArray) {
         return 0;
     }
-    
+
     for (NSString *fileName in filesArray) {
         NSString *filePath = [folderPath stringByAppendingPathComponent:fileName];
         NSDictionary *fileAttributes = [fileManager attributesOfItemAtPath:filePath error:nil];
-        
+
         if ([fileAttributes[NSFileType] isEqualToString:NSFileTypeRegular]) {
             totalFolderSize += [fileAttributes[NSFileSize] unsignedLongLongValue];
         }
@@ -546,7 +575,7 @@ NSDictionary *getInternalStorageFolderSizes(NSString *folderPath) {
         unsigned long long subdirectorySize = folderSizeAtPath(subdirectoryPath);
         result[subdirectory] = @(subdirectorySize);
     }
-    
+
     return result;
 }
 

@@ -1,0 +1,244 @@
+# DeliteAI Cursor Rules Overview
+
+This document provides an overview of the complete Cursor rules system for the DeliteAI project and how to use the specialized rules files effectively.
+
+## Rules File Structure
+
+The DeliteAI project uses multiple specialized Cursor rules files to handle its complex multi-language architecture:
+
+### 1. `.cursorrules` (Main Rules)
+- **Purpose**: Primary project rules and overall guidelines
+- **Scope**: Project-wide standards, architecture, and general development principles
+- **Use When**: Working on any aspect of the project, understanding project structure
+
+### 2. `.cursorrules-cpp` (C++ Specific)
+- **Purpose**: C++ development standards for coreruntime components
+- **Scope**: Memory management, performance optimization, CMake integration
+- **Use When**: Working on coreruntime/, nimblenet/, or any C++ components
+
+### 3. `.cursorrules-python` (Python Specific)
+- **Purpose**: Python development for agents and bindings
+- **Scope**: DelitePy integration, agent development, async patterns
+- **Use When**: Working on agents/, nimblenet_py/, or Python bindings
+
+### 4. `.cursorrules-mobile` (Mobile Development)
+- **Purpose**: Android and iOS SDK development
+- **Scope**: Cross-platform mobile patterns, native integration
+- **Use When**: Working on sdks/android/ or sdks/ios/
+
+### 5. `.cursorrules-docs` (Documentation)
+- **Purpose**: Documentation standards and MyST Markdown patterns
+- **Scope**: Sphinx documentation, API references, tutorials
+- **Use When**: Working on docs/ or any documentation
+
+### 6. `.cursorrules-overview` (This File)
+- **Purpose**: Explains the rules system and provides project navigation
+- **Scope**: Meta-documentation and system understanding
+- **Use When**: Getting oriented with the project or rules system
+
+## How to Use These Rules
+
+### For New Contributors
+1. Start with `.cursorrules` to understand the project
+2. Read the specific rules file for your work area
+3. Reference the overview when you need context
+
+### For Specific Tasks
+- **Adding a new C++ component**: Use `.cursorrules` + `.cursorrules-cpp`
+- **Creating a Python agent**: Use `.cursorrules` + `.cursorrules-python`
+- **Building mobile features**: Use `.cursorrules` + `.cursorrules-mobile`
+- **Writing documentation**: Use `.cursorrules` + `.cursorrules-docs`
+- **Cross-platform work**: Reference multiple relevant rules files
+
+### For AI Assistant Context
+When working with AI assistants, you can reference specific rules:
+- "Following .cursorrules-cpp guidelines..."
+- "According to .cursorrules-mobile patterns..."
+- "Using .cursorrules-docs standards..."
+
+## Project Architecture Quick Reference
+
+```
+deliteAI/
+├── coreruntime/           # C++ core SDK (.cursorrules-cpp)
+│   ├── nimblenet/         # Core AI runtime components
+│   ├── delitepy/          # Python bindings
+│   └── platform/          # Platform-specific implementations
+├── sdks/                  # Platform SDKs (.cursorrules-mobile)
+│   ├── android/           # Android Kotlin/Java SDK
+│   └── ios/               # iOS Swift/Objective-C SDK
+├── agents/                # AI agents marketplace (.cursorrules-python)
+│   ├── notifications_summarizer/
+│   └── gmail_assistant/
+├── nimblenet_py/          # Python simulation framework (.cursorrules-python)
+├── docs/                  # Documentation system (.cursorrules-docs)
+├── mockserver/            # Testing infrastructure
+└── third_party/           # External dependencies
+```
+
+## Development Workflows
+
+### Cross-Platform Feature Development
+1. **Design Phase**: Ensure feature works across all platforms
+2. **C++ Implementation**: Implement core logic in coreruntime/
+3. **Python Bindings**: Add Python interfaces if needed
+4. **Mobile SDKs**: Implement platform-specific APIs
+5. **Documentation**: Document APIs and usage patterns
+6. **Testing**: Verify on all platforms
+
+### Agent Development
+1. **Python Implementation**: Create agent in agents/
+2. **Integration Testing**: Test with nimblenet_py/
+3. **Mobile Integration**: Add mobile examples
+4. **Documentation**: Create usage guides and API docs
+
+### SDK Enhancement
+1. **Core Changes**: Update coreruntime/ if needed
+2. **Platform APIs**: Update Android/iOS SDKs
+3. **Consistency Check**: Ensure API parity
+4. **Testing**: Comprehensive cross-platform testing
+5. **Documentation**: Update all relevant docs
+
+## Quality Standards Summary
+
+### Code Quality
+- **C++**: Google style, RAII, smart pointers, modern C++17/20
+- **Python**: PEP 8, type hints, asyncio patterns, comprehensive testing
+- **Kotlin/Java**: Android guidelines, coroutines, lifecycle awareness
+- **Swift/Objective-C**: Apple guidelines, ARC, modern Swift patterns
+
+### Performance
+- **Mobile Optimization**: Memory, CPU, battery considerations
+- **Algorithm Efficiency**: Suitable for resource-constrained devices
+- **Cross-Platform**: Consistent performance across platforms
+
+### Security & Privacy
+- **On-Device Processing**: All AI operations remain local
+- **Data Encryption**: Sensitive data properly protected
+- **Platform Security**: Follow iOS/Android security guidelines
+
+### Documentation
+- **Completeness**: Comprehensive API documentation
+- **Examples**: Working, tested code examples
+- **Cross-Platform**: Platform-specific integration guides
+
+## Testing Strategy
+
+### Unit Testing
+- **C++**: Google Test framework
+- **Python**: pytest with async support
+- **Android**: JUnit with AndroidX Test
+- **iOS**: XCTest with async/await
+
+### Integration Testing
+- **Cross-Platform**: Verify API consistency
+- **Performance**: Resource usage validation
+- **End-to-End**: Complete workflow testing
+
+### Continuous Integration
+- **Multi-Platform**: Build and test on all platforms
+- **Documentation**: Auto-generate and validate docs
+- **Quality Gates**: Code coverage and performance metrics
+
+## Common Development Patterns
+
+### Error Handling
+```cpp
+// C++: Custom exceptions with context
+class DeliteAIException : public std::exception {
+    // Implementation with meaningful messages
+};
+```
+
+```python
+# Python: Specific exception types
+class DeliteAIError(Exception):
+    """Base exception for DeliteAI operations."""
+```
+
+```kotlin
+// Android: Result types for safe operations
+suspend fun processData(input: Data): Result<Output>
+```
+
+```swift
+// iOS: Async throws for modern error handling
+func processData(_ input: Data) async throws -> Output
+```
+
+### Configuration Management
+- **YAML Files**: Central configuration format
+- **Platform Adaptation**: Convert to platform-specific formats
+- **Validation**: Comprehensive input validation
+- **Defaults**: Sensible fallback values
+
+### Async Programming
+- **C++**: std::future and custom async patterns
+- **Python**: asyncio with proper exception handling
+- **Android**: Kotlin coroutines with lifecycle awareness
+- **iOS**: async/await with proper error propagation
+
+## Troubleshooting Guide
+
+### Build Issues
+1. Check platform-specific build requirements
+2. Verify dependency versions match config.yml
+3. Ensure proper CMake configuration
+4. Test on clean environment
+
+### Runtime Issues
+1. Verify configuration files are valid
+2. Check model file paths and permissions
+3. Monitor memory usage on mobile devices
+4. Review logs for specific error messages
+
+### Cross-Platform Inconsistencies
+1. Compare API implementations across platforms
+2. Test with identical input data
+3. Verify configuration consistency
+4. Check for platform-specific optimizations
+
+## Contributing Guidelines
+
+### Before Starting Work
+1. Read relevant rules files for your area
+2. Understand the cross-platform implications
+3. Check for existing issues or discussions
+4. Plan your testing strategy
+
+### Development Process
+1. Follow the fork and pull request workflow
+2. Include DCO sign-off in all commits
+3. Test on all relevant platforms
+4. Update documentation appropriately
+5. Include comprehensive tests
+
+### Code Review Process
+1. Verify compliance with relevant rules
+2. Test cross-platform functionality
+3. Review for performance implications
+4. Ensure documentation is updated
+5. Check for breaking changes
+
+## Resources and References
+
+### Internal Documentation
+- [Contributing Guidelines](CONTRIBUTING.md)
+- [Core Runtime README](coreruntime/README.md)
+- [Android SDK Guide](sdks/android/README.md)
+- [iOS SDK Guide](sdks/ios/README.md)
+- [Agents Documentation](agents/README.md)
+
+### External Resources
+- [DeliteAI Website](https://deliteai.dev/)
+- [GitHub Repository](https://github.com/NimbleEdge/deliteAI)
+- [Discord Community](https://discord.gg/y8WkMncstk)
+
+### Development Tools
+- **C++**: CMake, clang-format, Google Test
+- **Python**: ruff, pytest, Sphinx
+- **Android**: Gradle, Android Studio, Kotlin
+- **iOS**: Xcode, CocoaPods, Swift Package Manager
+- **Documentation**: Sphinx, MyST Markdown
+
+Remember: The DeliteAI project enables privacy-first AI experiences on mobile devices. Every contribution should align with this mission while maintaining the highest standards of quality, performance, and developer experience. 

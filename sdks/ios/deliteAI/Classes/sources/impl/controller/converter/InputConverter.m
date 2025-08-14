@@ -6,8 +6,8 @@
 
 #import <Foundation/Foundation.h>
 #import <DeliteAI/DeliteAI-Swift.h>
-#import "nimblejson.hpp"
-#import "executor_structs.h"
+#import "../include/nimblejson.hpp"
+#import "../include/executor_structs.h"
 #import "InputConverter.h"
 
 

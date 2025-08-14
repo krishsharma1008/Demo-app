@@ -7,7 +7,7 @@
 #ifndef NimbleNetController_h
 #define NimbleNetController_h
 #import "executor_structs.h"
-#import "nimble_net_util.hpp"
+// #import "nimble_net_util.hpp" // C++ header not accessible to Swift - using local definitions
 #import <Foundation/Foundation.h>
 
 

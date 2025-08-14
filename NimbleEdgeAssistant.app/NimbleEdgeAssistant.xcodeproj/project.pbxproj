@@ -1,0 +1,514 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3A7540B51B88FE61B057B184 /* Pods_NimbleEdgeAssistant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 901E5F80FF3C4D190E98BD32 /* Pods_NimbleEdgeAssistant.framework */; };
+		BA1F1A2A2C8A1B2A00123456 /* NimbleEdgeAssistantApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1F1A292C8A1B2A00123456 /* NimbleEdgeAssistantApp.swift */; };
+		BA1F1A2C2C8A1B2A00123456 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1F1A2B2C8A1B2A00123456 /* ContentView.swift */; };
+		BA1F1A302C8A1B2B00123456 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA1F1A2F2C8A1B2B00123456 /* Assets.xcassets */; };
+		BA1F1A332C8A1B2B00123456 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA1F1A322C8A1B2B00123456 /* Preview Assets.xcassets */; };
+		BA1F1A3A2C8A1C2A00123456 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1F1A392C8A1C2A00123456 /* AppDelegate.swift */; };
+		BA1F1A3C2C8A1C2A00123456 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1F1A3B2C8A1C2A00123456 /* ChatView.swift */; };
+		BA1F1A3E2C8A1C2A00123456 /* ChatHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1F1A3D2C8A1C2A00123456 /* ChatHistoryView.swift */; };
+		BA1F1A402C8A1C2A00123456 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1F1A3F2C8A1C2A00123456 /* LaunchView.swift */; };
+		BA1F1A422C8A1C2A00123456 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1F1A412C8A1C2A00123456 /* SettingsView.swift */; };
+		BA1F1A442C8A1C2A00123456 /* VoiceModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1F1A432C8A1C2A00123456 /* VoiceModeView.swift */; };
+		BA1F1A462C8A1C2A00123456 /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1F1A452C8A1C2A00123456 /* WaveformView.swift */; };
+		BA1F1A482C8A1C2A00123456 /* ChatModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1F1A472C8A1C2A00123456 /* ChatModels.swift */; };
+		BA1F1A4A2C8A1C2A00123456 /* VoiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1F1A492C8A1C2A00123456 /* VoiceManager.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		21A253EA10E36C29DC85F82A /* Pods-NimbleEdgeAssistant.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NimbleEdgeAssistant.release.xcconfig"; path = "../../Pods/Target Support Files/Pods-NimbleEdgeAssistant/Pods-NimbleEdgeAssistant.release.xcconfig"; sourceTree = "<group>"; };
+		901E5F80FF3C4D190E98BD32 /* Pods_NimbleEdgeAssistant.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NimbleEdgeAssistant.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A3A8700C888DF7BBE9C4C7C /* Pods-NimbleEdgeAssistant.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NimbleEdgeAssistant.debug.xcconfig"; path = "../../Pods/Target Support Files/Pods-NimbleEdgeAssistant/Pods-NimbleEdgeAssistant.debug.xcconfig"; sourceTree = "<group>"; };
+		BA1F1A262C8A1B2A00123456 /* NimbleEdgeAssistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NimbleEdgeAssistant.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA1F1A292C8A1B2A00123456 /* NimbleEdgeAssistantApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NimbleEdgeAssistantApp.swift; sourceTree = "<group>"; };
+		BA1F1A2B2C8A1B2A00123456 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		BA1F1A2F2C8A1B2B00123456 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BA1F1A322C8A1B2B00123456 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		BA1F1A392C8A1C2A00123456 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BA1F1A3B2C8A1C2A00123456 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		BA1F1A3D2C8A1C2A00123456 /* ChatHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryView.swift; sourceTree = "<group>"; };
+		BA1F1A3F2C8A1C2A00123456 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
+		BA1F1A412C8A1C2A00123456 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		BA1F1A432C8A1C2A00123456 /* VoiceModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceModeView.swift; sourceTree = "<group>"; };
+		BA1F1A452C8A1C2A00123456 /* WaveformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
+		BA1F1A472C8A1C2A00123456 /* ChatModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModels.swift; sourceTree = "<group>"; };
+		BA1F1A492C8A1C2A00123456 /* VoiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceManager.swift; sourceTree = "<group>"; };
+		BA1F1A4B2C8A1C2A00123456 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BA1F1A232C8A1B2A00123456 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A7540B51B88FE61B057B184 /* Pods_NimbleEdgeAssistant.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		481A869352C5113F9F6BB26C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				901E5F80FF3C4D190E98BD32 /* Pods_NimbleEdgeAssistant.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BA1F1A1D2C8A1B2A00123456 = {
+			isa = PBXGroup;
+			children = (
+				BA1F1A282C8A1B2A00123456 /* NimbleEdgeAssistant */,
+				BA1F1A272C8A1B2A00123456 /* Products */,
+				E8F5B5F04F5E5E5E5E5E5E5C /* Pods */,
+				481A869352C5113F9F6BB26C /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		BA1F1A272C8A1B2A00123456 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BA1F1A262C8A1B2A00123456 /* NimbleEdgeAssistant.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BA1F1A282C8A1B2A00123456 /* NimbleEdgeAssistant */ = {
+			isa = PBXGroup;
+			children = (
+				BA1F1A292C8A1B2A00123456 /* NimbleEdgeAssistantApp.swift */,
+				BA1F1A392C8A1C2A00123456 /* AppDelegate.swift */,
+				BA1F1A502C8A1C2A00123456 /* Views */,
+				BA1F1A512C8A1C2A00123456 /* Components */,
+				BA1F1A522C8A1C2A00123456 /* Models */,
+				BA1F1A532C8A1C2A00123456 /* Services */,
+				BA1F1A4B2C8A1C2A00123456 /* Info.plist */,
+				BA1F1A2F2C8A1B2B00123456 /* Assets.xcassets */,
+				BA1F1A312C8A1B2B00123456 /* Preview Content */,
+			);
+			path = NimbleEdgeAssistant;
+			sourceTree = "<group>";
+		};
+		BA1F1A312C8A1B2B00123456 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				BA1F1A322C8A1B2B00123456 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		BA1F1A502C8A1C2A00123456 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BA1F1A2B2C8A1B2A00123456 /* ContentView.swift */,
+				BA1F1A3B2C8A1C2A00123456 /* ChatView.swift */,
+				BA1F1A3D2C8A1C2A00123456 /* ChatHistoryView.swift */,
+				BA1F1A3F2C8A1C2A00123456 /* LaunchView.swift */,
+				BA1F1A412C8A1C2A00123456 /* SettingsView.swift */,
+				BA1F1A432C8A1C2A00123456 /* VoiceModeView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BA1F1A512C8A1C2A00123456 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				BA1F1A452C8A1C2A00123456 /* WaveformView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		BA1F1A522C8A1C2A00123456 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BA1F1A472C8A1C2A00123456 /* ChatModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		BA1F1A532C8A1C2A00123456 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				BA1F1A492C8A1C2A00123456 /* VoiceManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		E8F5B5F04F5E5E5E5E5E5E5C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9A3A8700C888DF7BBE9C4C7C /* Pods-NimbleEdgeAssistant.debug.xcconfig */,
+				21A253EA10E36C29DC85F82A /* Pods-NimbleEdgeAssistant.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BA1F1A252C8A1B2A00123456 /* NimbleEdgeAssistant */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BA1F1A362C8A1B2B00123456 /* Build configuration list for PBXNativeTarget "NimbleEdgeAssistant" */;
+			buildPhases = (
+				8FD5CA296C6FBF27F4A25A2A /* [CP] Check Pods Manifest.lock */,
+				BA1F1A222C8A1B2A00123456 /* Sources */,
+				BA1F1A232C8A1B2A00123456 /* Frameworks */,
+				BA1F1A242C8A1B2A00123456 /* Resources */,
+				4FA14CD6F8C5B8F6F9FA02CD /* [CP] Copy Pods Resources */,
+				C8B42DC62026173C66023BE3 /* [DeliteAI] Copy LLM Assets */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NimbleEdgeAssistant;
+			productName = NimbleEdgeAssistant;
+			productReference = BA1F1A262C8A1B2A00123456 /* NimbleEdgeAssistant.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BA1F1A1E2C8A1B2A00123456 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					BA1F1A252C8A1B2A00123456 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+				};
+			};
+			buildConfigurationList = BA1F1A212C8A1B2A00123456 /* Build configuration list for PBXProject "NimbleEdgeAssistant" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BA1F1A1D2C8A1B2A00123456;
+			productRefGroup = BA1F1A272C8A1B2A00123456 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BA1F1A252C8A1B2A00123456 /* NimbleEdgeAssistant */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BA1F1A242C8A1B2A00123456 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA1F1A332C8A1B2B00123456 /* Preview Assets.xcassets in Resources */,
+				BA1F1A302C8A1B2B00123456 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4FA14CD6F8C5B8F6F9FA02CD /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NimbleEdgeAssistant/Pods-NimbleEdgeAssistant-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NimbleEdgeAssistant/Pods-NimbleEdgeAssistant-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NimbleEdgeAssistant/Pods-NimbleEdgeAssistant-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8FD5CA296C6FBF27F4A25A2A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NimbleEdgeAssistant-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C8B42DC62026173C66023BE3 /* [DeliteAI] Copy LLM Assets */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[DeliteAI] Copy LLM Assets";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Copy the on-device model folder into the bundle at build time.\n# Everything under Models/llama3/ is copied verbatim.\nASSETS_SRC=\"${SRCROOT}/NimbleEdgeAssistant/Models/llama3\"\nASSETS_DST=\"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Models/llama3\"\n\nif [ -d \"$ASSETS_SRC\" ]; then\n  echo \"[DeliteAI] Copying LLM assets from $ASSETS_SRC to $ASSETS_DST\"\n  mkdir -p \"$(dirname \"$ASSETS_DST\")\"\n  rsync -a --delete \"$ASSETS_SRC/\" \"$ASSETS_DST/\"\n  echo \"[DeliteAI] LLM assets copied successfully\"\nelse\n  echo \"[DeliteAI] Warning: LLM assets not found at $ASSETS_SRC\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BA1F1A222C8A1B2A00123456 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA1F1A2C2C8A1B2A00123456 /* ContentView.swift in Sources */,
+				BA1F1A2A2C8A1B2A00123456 /* NimbleEdgeAssistantApp.swift in Sources */,
+				BA1F1A3A2C8A1C2A00123456 /* AppDelegate.swift in Sources */,
+				BA1F1A3C2C8A1C2A00123456 /* ChatView.swift in Sources */,
+				BA1F1A3E2C8A1C2A00123456 /* ChatHistoryView.swift in Sources */,
+				BA1F1A402C8A1C2A00123456 /* LaunchView.swift in Sources */,
+				BA1F1A422C8A1C2A00123456 /* SettingsView.swift in Sources */,
+				BA1F1A442C8A1C2A00123456 /* VoiceModeView.swift in Sources */,
+				BA1F1A462C8A1C2A00123456 /* WaveformView.swift in Sources */,
+				BA1F1A482C8A1C2A00123456 /* ChatModels.swift in Sources */,
+				BA1F1A4A2C8A1C2A00123456 /* VoiceManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		BA1F1A342C8A1B2B00123456 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BA1F1A352C8A1B2B00123456 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BA1F1A372C8A1B2B00123456 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A3A8700C888DF7BBE9C4C7C /* Pods-NimbleEdgeAssistant.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"NimbleEdgeAssistant/Preview Content\"";
+				DEVELOPMENT_TEAM = UKLPH83F29;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = NimbleEdgeAssistant/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ai.delite.BharatSaathiAI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BA1F1A382C8A1B2B00123456 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21A253EA10E36C29DC85F82A /* Pods-NimbleEdgeAssistant.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"NimbleEdgeAssistant/Preview Content\"";
+				DEVELOPMENT_TEAM = UKLPH83F29;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = NimbleEdgeAssistant/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ai.delite.BharatSaathiAI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BA1F1A212C8A1B2A00123456 /* Build configuration list for PBXProject "NimbleEdgeAssistant" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA1F1A342C8A1B2B00123456 /* Debug */,
+				BA1F1A352C8A1B2B00123456 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BA1F1A362C8A1B2B00123456 /* Build configuration list for PBXNativeTarget "NimbleEdgeAssistant" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA1F1A372C8A1B2B00123456 /* Debug */,
+				BA1F1A382C8A1B2B00123456 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BA1F1A1E2C8A1B2A00123456 /* Project object */;
+}

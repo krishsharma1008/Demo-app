@@ -359,15 +359,11 @@
 				"${PODS_ROOT}/Target Support Files/Pods-NimbleNetExample/Pods-NimbleNetExample-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftProtobuf/SwiftProtobuf.framework",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/DeliteAI/onnxruntime-genai.framework/onnxruntime-genai",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/DeliteAI/LLaMARunner.framework/LLaMARunner",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftProtobuf.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/onnxruntime-genai.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LLaMARunner.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -405,15 +401,11 @@
 				"${PODS_ROOT}/Target Support Files/Pods-NimbleNetExample_Tests/Pods-NimbleNetExample_Tests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftProtobuf/SwiftProtobuf.framework",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/DeliteAI/onnxruntime-genai.framework/onnxruntime-genai",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/DeliteAI/LLaMARunner.framework/LLaMARunner",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftProtobuf.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/onnxruntime-genai.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LLaMARunner.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

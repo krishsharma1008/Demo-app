@@ -1,0 +1,314 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -workspace NimbleEdgeAssistant.xcworkspace -scheme NimbleEdgeAssistant -destination id=0A6913C4-12DB-4112-AA76-B9E0753ED305 build
+
+--- xcodebuild: WARNING: Using the first of multiple matching destinations:
+{ platform:iOS Simulator, arch:arm64, id:0A6913C4-12DB-4112-AA76-B9E0753ED305, OS:18.6, name:iPhone 16 Pro }
+{ platform:iOS Simulator, arch:x86_64, id:0A6913C4-12DB-4112-AA76-B9E0753ED305, OS:18.6, name:iPhone 16 Pro }
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (9 targets)
+    Target 'NimbleEdgeAssistant' in project 'NimbleEdgeAssistant'
+        ➜ Implicit dependency on target 'Pods-NimbleEdgeAssistant' in project 'Pods' via file 'Pods_NimbleEdgeAssistant.framework' in build phase 'Link Binary'
+        ➜ Implicit dependency on target 'Alamofire' in project 'Pods' via options '-framework Alamofire' in build setting 'OTHER_LDFLAGS'
+        ➜ Implicit dependency on target 'DeliteAI' in project 'Pods' via options '-framework DeliteAI' in build setting 'OTHER_LDFLAGS'
+        ➜ Implicit dependency on target 'SwiftProtobuf' in project 'Pods' via options '-framework SwiftProtobuf' in build setting 'OTHER_LDFLAGS'
+    Target 'Pods-NimbleEdgeAssistant' in project 'Pods'
+        ➜ Explicit dependency on target 'Alamofire' in project 'Pods'
+        ➜ Explicit dependency on target 'DeliteAI' in project 'Pods'
+        ➜ Explicit dependency on target 'PLCrashReporter' in project 'Pods'
+        ➜ Explicit dependency on target 'SwiftProtobuf' in project 'Pods'
+    Target 'DeliteAI' in project 'Pods'
+        ➜ Explicit dependency on target 'Alamofire' in project 'Pods'
+        ➜ Explicit dependency on target 'PLCrashReporter' in project 'Pods'
+        ➜ Explicit dependency on target 'SwiftProtobuf' in project 'Pods'
+    Target 'SwiftProtobuf' in project 'Pods'
+        ➜ Explicit dependency on target 'SwiftProtobuf-SwiftProtobuf' in project 'Pods'
+    Target 'SwiftProtobuf-SwiftProtobuf' in project 'Pods' (no dependencies)
+    Target 'PLCrashReporter' in project 'Pods'
+        ➜ Explicit dependency on target 'PLCrashReporter-PLCrashReporter' in project 'Pods'
+    Target 'PLCrashReporter-PLCrashReporter' in project 'Pods' (no dependencies)
+    Target 'Alamofire' in project 'Pods'
+        ➜ Explicit dependency on target 'Alamofire-Alamofire' in project 'Pods'
+    Target 'Alamofire-Alamofire' in project 'Pods' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator18.5.sdk /Users/krishsharma/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator18.5-22F76-d5fc8ad4295d2ef488fb7d0f804ce0c4.sdkstatcache
+    cd /Users/krishsharma/Downloads/deliteAI
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator18.5.sdk -o /Users/krishsharma/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator18.5-22F76-d5fc8ad4295d2ef488fb7d0f804ce0c4.sdkstatcache
+
+note: Disabling previews because SWIFT_VERSION is set and SWIFT_OPTIMIZATION_LEVEL=-O, expected -Onone (in target 'DeliteAI' from project 'Pods')
+SwiftDriver DeliteAI normal arm64 com.apple.xcode.tools.swift.compiler (in target 'DeliteAI' from project 'Pods')
+    cd /Users/krishsharma/Downloads/deliteAI/Pods
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name DeliteAI -O -whole-module-optimization -enforce-exclusivity\=checked @/Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/DeliteAI.SwiftFileList -DDEBUG -D COCOAPODS -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator18.5.sdk -target arm64-apple-ios16.0-simulator -g -module-cache-path /Users/krishsharma/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -swift-version 5 -I /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Products/Debug-iphonesimulator/DeliteAI -F /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Products/Debug-iphonesimulator/DeliteAI -F /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Products/Debug-iphonesimulator/Alamofire -F /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Products/Debug-iphonesimulator/SwiftProtobuf -F /Users/krishsharma/Downloads/deliteAI/Pods/PLCrashReporter -F /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Products/Debug-iphonesimulator/XCFrameworkIntermediates/PLCrashReporter -c -num-threads 12 -Xcc -ivfsstatcache -Xcc /Users/krishsharma/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator18.5-22F76-d5fc8ad4295d2ef488fb7d0f804ce0c4.sdkstatcache -output-file-map /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/DeliteAI-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/DeliteAI.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/krishsharma/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/DeliteAI_const_extract_protocols.json -Xcc -iquote -Xcc /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/DeliteAI-generated-files.hmap -Xcc -I/Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/DeliteAI-own-target-headers.hmap -Xcc -I/Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/DeliteAI-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Pods-8699adb1dd336b26511df848a716bd42-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/DeliteAI-project-headers.hmap -Xcc -I/Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Products/Debug-iphonesimulator/DeliteAI/include -Xcc -I/Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/DerivedSources-normal/arm64 -Xcc -I/Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/DerivedSources/arm64 -Xcc -I/Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/DerivedSources -Xcc -DPOD_CONFIGURATION_DEBUG\=1 -Xcc -DDEBUG\=1 -Xcc -DCOCOAPODS\=1 -emit-objc-header -emit-objc-header-path /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/DeliteAI-Swift.h -import-underlying-module -Xcc -ivfsoverlay -Xcc /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/unextended-module-overlay.yaml -working-directory /Users/krishsharma/Downloads/deliteAI/Pods -no-emit-module-separately-wmo
+
+SwiftDriver SwiftProtobuf normal arm64 com.apple.xcode.tools.swift.compiler (in target 'SwiftProtobuf' from project 'Pods')
+    cd /Users/krishsharma/Downloads/deliteAI/Pods
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name SwiftProtobuf -Onone -enforce-exclusivity\=checked @/Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/SwiftProtobuf.build/Objects-normal/arm64/SwiftProtobuf.SwiftFileList -DDEBUG -D COCOAPODS -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator18.5.sdk -target arm64-apple-ios16.0-simulator -g -module-cache-path /Users/krishsharma/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Index.noindex/DataStore -swift-version 5 -I /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Products/Debug-iphonesimulator/SwiftProtobuf -F /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Products/Debug-iphonesimulator/SwiftProtobuf -c -j12 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/krishsharma/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator18.5-22F76-d5fc8ad4295d2ef488fb7d0f804ce0c4.sdkstatcache -output-file-map /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/SwiftProtobuf.build/Objects-normal/arm64/SwiftProtobuf-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/SwiftProtobuf.build/Objects-normal/arm64/SwiftProtobuf.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/krishsharma/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/SwiftProtobuf.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/SwiftProtobuf.build/Objects-normal/arm64/SwiftProtobuf_const_extract_protocols.json -Xcc -iquote -Xcc /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/SwiftProtobuf.build/SwiftProtobuf-generated-files.hmap -Xcc -I/Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/SwiftProtobuf.build/SwiftProtobuf-own-target-headers.hmap -Xcc -I/Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/SwiftProtobuf.build/SwiftProtobuf-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Pods-8699adb1dd336b26511df848a716bd42-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/SwiftProtobuf.build/SwiftProtobuf-project-headers.hmap -Xcc -I/Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Products/Debug-iphonesimulator/SwiftProtobuf/include -Xcc -I/Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/SwiftProtobuf.build/DerivedSources-normal/arm64 -Xcc -I/Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/SwiftProtobuf.build/DerivedSources/arm64 -Xcc -I/Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/SwiftProtobuf.build/DerivedSources -Xcc -DPOD_CONFIGURATION_DEBUG\=1 -Xcc -DDEBUG\=1 -Xcc -DCOCOAPODS\=1 -emit-objc-header -emit-objc-header-path /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/SwiftProtobuf.build/Objects-normal/arm64/SwiftProtobuf-Swift.h -import-underlying-module -Xcc -ivfsoverlay -Xcc /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/SwiftProtobuf.build/unextended-module-overlay.yaml -working-directory /Users/krishsharma/Downloads/deliteAI/Pods -experimental-emit-module-separately -disable-cmo
+
+SwiftCompile normal arm64 Compiling\ ConnectionLayer.swift,\ Constants.swift,\ DatabaseTable.swift,\ DataType.swift,\ DataTypeMismatchError.swift,\ DownloadItem.swift,\ DownloadManager.swift,\ ESpeakNGCallbacks.swift,\ FileDownloadTypes.swift,\ FileIO.swift,\ HardwareInfo.swift,\ KeychainManager.swift,\ LogConfig.swift,\ Logger.swift,\ ModelDownloadStatus.swift,\ NimbleNetApi.swift,\ NimbleNetConfig.swift,\ NimbleNetResult.swift,\ NimbleNetTensor.swift,\ ProtoAnyWrapper.swift,\ ProtoDecoder.swift,\ ProtoListwrapper.swift,\ ProtoMapWrapper.swift,\ ProtoObjectWrapper.swift,\ ProtoVisitor.swift,\ UserEventData.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/networking/ConnectionLayer.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/common/util/Constants.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/dataModels/DatabaseTable.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/dataModels/DataType.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/dataModels/DataTypeMismatchError.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/networking/dataModel/DownloadItem.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/networking/DownloadManager.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/ESpeakNGCallbacks.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/dataModel/FileDownloadTypes.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/FileIO.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/common/HardwareInfo.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/common/KeychainManager.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/logging/LogConfig.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/logging/Logger.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/networking/dataModel/ModelDownloadStatus.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/dataModel/NimbleNetConfig.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/dataModel/NimbleNetResult.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/dataModels/NimbleNetTensor.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/delitePy/proto/impl/ProtoAnyWrapper.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/delitePy/proto/impl/ProtoDecoder.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/delitePy/proto/impl/ProtoListwrapper.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/delitePy/proto/impl/ProtoMapWrapper.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/delitePy/proto/impl/ProtoObjectWrapper.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/delitePy/proto/ProtoVisitor.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/dataModel/UserEventData.swift (in target 'DeliteAI' from project 'Pods')
+CompileSwift normal arm64 (in target 'DeliteAI' from project 'Pods')
+    cd /Users/krishsharma/Downloads/deliteAI/Pods
+    
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/networking/ConnectionLayer.swift:33:13: warning: variable 'downloadManager' was never mutated; consider changing to 'let' constant
+        var downloadManager = DownloadManager.shared
+        ~~~ ^
+        let
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/networking/ConnectionLayer.swift:39:19: warning: value 'urlString' was defined but never used; consider replacing with boolean test
+        guard let urlString = URL(string: url) else {
+              ~~~~^~~~~~~~~~~~
+                                               != nil
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/networking/ConnectionLayer.swift:44:16: warning: variable 'existingDownloadItem' was never mutated; consider changing to 'let' constant
+        if var existingDownloadItem = downloadManager.getDownloadItem(for: url) {
+           ~~~ ^
+           let
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/networking/DownloadManager.swift:43:30: warning: result of call to 'registerDownloadStateChange(downloadItem:newCurrentState:url:)' is unused
+                        self.registerDownloadStateChange(downloadItem: dataItem, newCurrentState: Int(currentStatus.rawValue), url: url)
+                             ^                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/networking/DownloadManager.swift:57:24: warning: value 'error' was defined but never used; consider replacing with boolean test
+                if let error = completion.error {
+                   ~~~~^~~~~~~~
+                                                != nil
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/networking/DownloadManager.swift:51:31: warning: no calls to throwing functions occur within 'try' expression
+                if let data = try? result.get() {
+                              ^
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/common/HardwareInfo.swift:180:26: warning: 'NXGetLocalArchInfo()' was deprecated in iOS 16.0
+        guard let info = NXGetLocalArchInfo() else {
+                         ^
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/common/HardwareInfo.swift:262:13: warning: initialization of immutable value 'cpuUsage' was never used; consider replacing with assignment to '_' or removing it
+        let cpuUsage = getCpuUsage()
+        ~~~~^~~~~~~~
+        _
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/common/HardwareInfo.swift:264:13: warning: initialization of immutable value 'hardwareInfo' was never used; consider replacing with assignment to '_' or removing it
+        let hardwareInfo = getHardwareInfo()
+        ~~~~^~~~~~~~~~~~
+        _
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/common/HardwareInfo.swift:291:17: warning: initialization of immutable value 'cpuUsage' was never used; consider replacing with assignment to '_' or removing it
+            let cpuUsage = getCpuUsage()
+            ~~~~^~~~~~~~
+            _
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/common/HardwareInfo.swift:293:17: warning: initialization of immutable value 'hardwareInfo' was never used; consider replacing with assignment to '_' or removing it
+            let hardwareInfo = getHardwareInfo()
+            ~~~~^~~~~~~~~~~~
+            _
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/common/HardwareInfo.swift:339:13: warning: initialization of immutable value 'device' was never used; consider replacing with assignment to '_' or removing it
+        let device = UIDevice.current
+        ~~~~^~~~~~
+        _
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:18:29: error: 'restartSessionWithId' has been renamed to 'restartSession(withId:)'
+        nimbleNetController.restartSessionWithId(sessionId)
+                            ^~~~~~~~~~~~~~~~~~~~
+                            restartSession       withId: 
+DeliteAI.NimbleNetController.restartSessionWithId:3:13: note: 'restartSessionWithId' was obsoleted in Swift 3
+  open func restartSessionWithId(_ sessionId: String!)}
+            ^
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:49:93: warning: expression implicitly coerced from '[[String : Any]]?' to 'Any'
+                    let modifiedAssetsJsonData = try JSONSerialization.data(withJSONObject: modifiedAssetsJson, options: [])
+                                                                                            ^~~~~~~~~~~~~~~~~~
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:49:93: note: provide a default value to avoid this warning
+                    let modifiedAssetsJsonData = try JSONSerialization.data(withJSONObject: modifiedAssetsJson, options: [])
+                                                                                            ^~~~~~~~~~~~~~~~~~
+                                                                                                               ?? <#default value#>
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:49:93: note: force-unwrap the value to avoid this warning
+                    let modifiedAssetsJsonData = try JSONSerialization.data(withJSONObject: modifiedAssetsJson, options: [])
+                                                                                            ^~~~~~~~~~~~~~~~~~
+                                                                                                              !
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:49:93: note: explicitly cast to 'Any' with 'as Any' to silence this warning
+                    let modifiedAssetsJsonData = try JSONSerialization.data(withJSONObject: modifiedAssetsJson, options: [])
+                                                                                            ^~~~~~~~~~~~~~~~~~
+                                                                                                               as Any
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:22:13: warning: variable 'config' was never mutated; consider changing to 'let' constant
+        var config = config
+        ~~~ ^
+        let
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:119:52: warning: forced cast from '[AnyHashable : Any]?' to 'NSDictionary' only unwraps and bridges; did you mean to use '!' with 'as'?
+            return NimbleNetResult<Unit>(data: res as! NSDictionary)
+                                               ~~~ ^~~ ~~~~~~~~~~~~
+                                                  !as
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:121:9: warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+        catch{
+        ^
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:193:30: warning: expression implicitly coerced from '[Int]?' to 'Any'
+                    "shape": input.shape
+                             ^~~~~~~~~~~
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:193:36: note: provide a default value to avoid this warning
+                    "shape": input.shape
+                             ~~~~~~^~~~~
+                                         ?? <#default value#>
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:193:36: note: force-unwrap the value to avoid this warning
+                    "shape": input.shape
+                             ~~~~~~^~~~~
+                                        !
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:193:36: note: explicitly cast to 'Any' with 'as Any' to silence this warning
+                    "shape": input.shape
+                             ~~~~~~^~~~~
+                                         as Any
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:199:26: warning: expression implicitly coerced from '[Int]?' to 'Any'
+                "shape": input.shape
+                         ^~~~~~~~~~~
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:199:32: note: provide a default value to avoid this warning
+                "shape": input.shape
+                         ~~~~~~^~~~~
+                                     ?? <#default value#>
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:199:32: note: force-unwrap the value to avoid this warning
+                "shape": input.shape
+                         ~~~~~~^~~~~
+                                    !
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:199:32: note: explicitly cast to 'Any' with 'as Any' to silence this warning
+                "shape": input.shape
+                         ~~~~~~^~~~~
+                                     as Any
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:156:17: warning: variable 'shape' was never used; consider replacing with '_' or removing it
+            var shape:[Int] = []
+                ^~~~~
+                _
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:166:27: warning: variable 'data' was never mutated; consider changing to 'let' constant
+                   if var data = tensorDetails["data"] {
+                      ~~~ ^
+                      let
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:188:21: warning: variable 'message' was never mutated; consider changing to 'let' constant
+                var message = input.data as! (Message & _ProtoNameProviding)
+                ~~~ ^
+                let
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:189:22: warning: variable 'wrapper' was never mutated; consider changing to 'let' constant
+                 var wrapper = ProtoObjectWrapper(message: message)
+                 ~~~ ^
+                 let
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:279:20: warning: value 'shape' was defined but never used; consider replacing with boolean test
+            if let shape = shape {
+               ~~~~^~~~~~~~
+                                 != nil
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:300:18: warning: immutable value 'value' was never used; consider replacing with '_' or removing it
+        case let value as Int32:
+                 ^~~~~
+                 _
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:302:18: warning: immutable value 'value' was never used; consider replacing with '_' or removing it
+        case let value as Int64:
+                 ^~~~~
+                 _
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:304:18: warning: immutable value 'value' was never used; consider replacing with '_' or removing it
+        case let value as Float:
+                 ^~~~~
+                 _
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:306:18: warning: immutable value 'value' was never used; consider replacing with '_' or removing it
+        case let value as Double:
+                 ^~~~~
+                 _
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:308:18: warning: immutable value 'value' was never used; consider replacing with '_' or removing it
+        case let value as Bool:
+                 ^~~~~
+                 _
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:310:18: warning: immutable value 'value' was never used; consider replacing with '_' or removing it
+        case let value as String:
+                 ^~~~~
+                 _
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:312:18: warning: immutable value 'value' was never used; consider replacing with '_' or removing it
+        case let value as [String: Any]:
+                 ^~~~~
+                 _
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift:314:18: warning: immutable value 'value' was never used; consider replacing with '_' or removing it
+        case let value as Message:
+                 ^~~~~
+                 _
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/delitePy/proto/impl/ProtoDecoder.swift:83:19: warning: value 'mapValue' was defined but never used; consider replacing with boolean test
+        guard let mapValue = value as? [String: Any] else {
+              ~~~~^~~~~~~~~~~      ~~~
+                                   is
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/delitePy/proto/impl/ProtoDecoder.swift:104:19: warning: value 'mapValue' was defined but never used; consider replacing with boolean test
+        guard let mapValue = value as? [String: Any] else {
+              ~~~~^~~~~~~~~~~      ~~~
+                                   is
+/Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/delitePy/proto/impl/ProtoDecoder.swift:510:17: warning: variable 'protoList' was never mutated; consider changing to 'let' constant
+            var protoList: [Any] = fieldValues.protoList
+            ~~~ ^
+            let
+
+Failed frontend command:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -frontend -c /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/networking/ConnectionLayer.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/common/util/Constants.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/dataModels/DatabaseTable.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/dataModels/DataType.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/dataModels/DataTypeMismatchError.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/networking/dataModel/DownloadItem.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/networking/DownloadManager.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/ESpeakNGCallbacks.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/dataModel/FileDownloadTypes.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/FileIO.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/common/HardwareInfo.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/common/KeychainManager.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/logging/LogConfig.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/logging/Logger.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/networking/dataModel/ModelDownloadStatus.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/dataModel/NimbleNetConfig.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/dataModel/NimbleNetResult.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/dataModels/NimbleNetTensor.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/delitePy/proto/impl/ProtoAnyWrapper.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/delitePy/proto/impl/ProtoDecoder.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/delitePy/proto/impl/ProtoListwrapper.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/delitePy/proto/impl/ProtoMapWrapper.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/delitePy/proto/impl/ProtoObjectWrapper.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/delitePy/proto/ProtoVisitor.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/dataModel/UserEventData.swift -supplementary-output-file-map /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/supplementaryOutputs-1 -target arm64-apple-ios16.0-simulator -Xllvm -aarch64-use-tbi -enable-objc-interop -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator18.5.sdk -I /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Products/Debug-iphonesimulator/DeliteAI -F /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Products/Debug-iphonesimulator/DeliteAI -F /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Products/Debug-iphonesimulator/Alamofire -F /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Products/Debug-iphonesimulator/SwiftProtobuf -F /Users/krishsharma/Downloads/deliteAI/Pods/PLCrashReporter -F /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Products/Debug-iphonesimulator/XCFrameworkIntermediates/PLCrashReporter -no-color-diagnostics -enable-testing -g -debug-info-format\=dwarf -dwarf-version\=4 -import-underlying-module -module-cache-path /Users/krishsharma/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -swift-version 5 -enforce-exclusivity\=checked -O -D DEBUG -D COCOAPODS -serialize-debugging-options -const-gather-protocols-file /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/DeliteAI_const_extract_protocols.json -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -empty-abi-descriptor -validate-clang-modules-once -clang-build-session-file /Users/krishsharma/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -working-directory -Xcc /Users/krishsharma/Downloads/deliteAI/Pods -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift -file-compilation-dir /Users/krishsharma/Downloads/deliteAI/Pods -Xcc -ivfsstatcache -Xcc /Users/krishsharma/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator18.5-22F76-d5fc8ad4295d2ef488fb7d0f804ce0c4.sdkstatcache -Xcc -I/Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/swift-overrides.hmap -Xcc -iquote -Xcc /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/DeliteAI-generated-files.hmap -Xcc -I/Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/DeliteAI-own-target-headers.hmap -Xcc -I/Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/DeliteAI-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Pods-8699adb1dd336b26511df848a716bd42-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/DeliteAI-project-headers.hmap -Xcc -I/Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Products/Debug-iphonesimulator/DeliteAI/include -Xcc -I/Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/DerivedSources-normal/arm64 -Xcc -I/Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/DerivedSources/arm64 -Xcc -I/Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/DerivedSources -Xcc -DPOD_CONFIGURATION_DEBUG\=1 -Xcc -DDEBUG\=1 -Xcc -DCOCOAPODS\=1 -Xcc -ivfsoverlay -Xcc /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/unextended-module-overlay.yaml -module-name DeliteAI -frontend-parseable-output -disable-clang-spi -target-sdk-version 18.5 -target-sdk-name iphonesimulator18.5 -external-plugin-path /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server -external-plugin-path /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/local/lib/swift/host/plugins\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server -in-process-plugin-server-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/libSwiftInProcPluginServer.dylib -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/local/lib/swift/host/plugins -enable-default-cmo -num-threads 12 -o /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/ConnectionLayer.o -o /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/Constants.o -o /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/DatabaseTable.o -o /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/DataType.o -o /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/DataTypeMismatchError.o -o /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/DownloadItem.o -o /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/DownloadManager.o -o /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/ESpeakNGCallbacks.o -o /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/FileDownloadTypes.o -o /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/FileIO.o -o /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/HardwareInfo.o -o /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/KeychainManager.o -o /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/LogConfig.o -o /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/Logger.o -o /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/ModelDownloadStatus.o -o /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/NimbleNetApi.o -o /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/NimbleNetConfig.o -o /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/NimbleNetResult.o -o /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/NimbleNetTensor.o -o /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/ProtoAnyWrapper.o -o /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/ProtoDecoder.o -o /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/ProtoListwrapper.o -o /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/ProtoMapWrapper.o -o /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/ProtoObjectWrapper.o -o /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/ProtoVisitor.o -o /Users/krishsharma/Library/Developer/Xcode/DerivedData/NimbleEdgeAssistant-emwarzxnolejvofabqxncqwtytol/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/UserEventData.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/ConnectionLayer.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/Constants.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/DatabaseTable.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/DataType.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/DataTypeMismatchError.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/DownloadItem.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/DownloadManager.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/ESpeakNGCallbacks.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/FileDownloadTypes.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/FileIO.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/HardwareInfo.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/KeychainManager.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/LogConfig.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/Logger.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/ModelDownloadStatus.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/NimbleNetApi.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/NimbleNetConfig.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/NimbleNetResult.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/NimbleNetTensor.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/ProtoAnyWrapper.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/ProtoDecoder.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/ProtoListwrapper.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/ProtoMapWrapper.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/ProtoObjectWrapper.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/ProtoVisitor.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/DeliteAI.build/Objects-normal/arm64/UserEventData.o
+SwiftCompile normal arm64 Compiling\ DoubleParser.swift /Users/krishsharma/Downloads/deliteAI/Pods/SwiftProtobuf/Sources/SwiftProtobuf/DoubleParser.swift (in target 'SwiftProtobuf' from project 'Pods')
+
+SwiftCompile normal arm64 /Users/krishsharma/Downloads/deliteAI/Pods/SwiftProtobuf/Sources/SwiftProtobuf/DoubleParser.swift (in target 'SwiftProtobuf' from project 'Pods')
+    cd /Users/krishsharma/Downloads/deliteAI/Pods
+    
+
+SwiftCompile normal arm64 Compiling\ duration.pb.swift /Users/krishsharma/Downloads/deliteAI/Pods/SwiftProtobuf/Sources/SwiftProtobuf/duration.pb.swift (in target 'SwiftProtobuf' from project 'Pods')
+
+SwiftCompile normal arm64 /Users/krishsharma/Downloads/deliteAI/Pods/SwiftProtobuf/Sources/SwiftProtobuf/duration.pb.swift (in target 'SwiftProtobuf' from project 'Pods')
+    cd /Users/krishsharma/Downloads/deliteAI/Pods
+    
+
+SwiftCompile normal arm64 Compiling\ descriptor.pb.swift /Users/krishsharma/Downloads/deliteAI/Pods/SwiftProtobuf/Sources/SwiftProtobuf/descriptor.pb.swift (in target 'SwiftProtobuf' from project 'Pods')
+SwiftCompile normal arm64 /Users/krishsharma/Downloads/deliteAI/Pods/SwiftProtobuf/Sources/SwiftProtobuf/descriptor.pb.swift (in target 'SwiftProtobuf' from project 'Pods')
+    cd /Users/krishsharma/Downloads/deliteAI/Pods
+    
+
+SwiftCompile normal arm64 Compiling\ ExtensibleMessage.swift /Users/krishsharma/Downloads/deliteAI/Pods/SwiftProtobuf/Sources/SwiftProtobuf/ExtensibleMessage.swift (in target 'SwiftProtobuf' from project 'Pods')
+
+SwiftCompile normal arm64 /Users/krishsharma/Downloads/deliteAI/Pods/SwiftProtobuf/Sources/SwiftProtobuf/ExtensibleMessage.swift (in target 'SwiftProtobuf' from project 'Pods')
+    cd /Users/krishsharma/Downloads/deliteAI/Pods
+    
+
+SwiftCompile normal arm64 Compiling\ Enum.swift /Users/krishsharma/Downloads/deliteAI/Pods/SwiftProtobuf/Sources/SwiftProtobuf/Enum.swift (in target 'SwiftProtobuf' from project 'Pods')
+
+SwiftCompile normal arm64 /Users/krishsharma/Downloads/deliteAI/Pods/SwiftProtobuf/Sources/SwiftProtobuf/Enum.swift (in target 'SwiftProtobuf' from project 'Pods')
+    cd /Users/krishsharma/Downloads/deliteAI/Pods
+    
+
+SwiftCompile normal arm64 Compiling\ empty.pb.swift /Users/krishsharma/Downloads/deliteAI/Pods/SwiftProtobuf/Sources/SwiftProtobuf/empty.pb.swift (in target 'SwiftProtobuf' from project 'Pods')
+
+SwiftCompile normal arm64 /Users/krishsharma/Downloads/deliteAI/Pods/SwiftProtobuf/Sources/SwiftProtobuf/empty.pb.swift (in target 'SwiftProtobuf' from project 'Pods')
+    cd /Users/krishsharma/Downloads/deliteAI/Pods
+    
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ SwiftProtobuf (in target 'SwiftProtobuf' from project 'Pods')
+
+EmitSwiftModule normal arm64 (in target 'SwiftProtobuf' from project 'Pods')
+    cd /Users/krishsharma/Downloads/deliteAI/Pods
+    
+
+SwiftCompile normal arm64 Compiling\ ExtensionFields.swift /Users/krishsharma/Downloads/deliteAI/Pods/SwiftProtobuf/Sources/SwiftProtobuf/ExtensionFields.swift (in target 'SwiftProtobuf' from project 'Pods')
+
+SwiftCompile normal arm64 /Users/krishsharma/Downloads/deliteAI/Pods/SwiftProtobuf/Sources/SwiftProtobuf/ExtensionFields.swift (in target 'SwiftProtobuf' from project 'Pods')
+    cd /Users/krishsharma/Downloads/deliteAI/Pods
+    
+
+SwiftCompile normal arm64 Compiling\ ExtensionFieldValueSet.swift /Users/krishsharma/Downloads/deliteAI/Pods/SwiftProtobuf/Sources/SwiftProtobuf/ExtensionFieldValueSet.swift (in target 'SwiftProtobuf' from project 'Pods')
+
+SwiftCompile normal arm64 /Users/krishsharma/Downloads/deliteAI/Pods/SwiftProtobuf/Sources/SwiftProtobuf/ExtensionFieldValueSet.swift (in target 'SwiftProtobuf' from project 'Pods')
+    cd /Users/krishsharma/Downloads/deliteAI/Pods
+    
+
+SwiftDriverJobDiscovery normal arm64 Compiling Enum.swift (in target 'SwiftProtobuf' from project 'Pods')
+
+SwiftDriverJobDiscovery normal arm64 Compiling ExtensibleMessage.swift (in target 'SwiftProtobuf' from project 'Pods')
+
+SwiftDriverJobDiscovery normal arm64 Compiling empty.pb.swift (in target 'SwiftProtobuf' from project 'Pods')
+
+SwiftDriverJobDiscovery normal arm64 Compiling duration.pb.swift (in target 'SwiftProtobuf' from project 'Pods')
+
+SwiftDriverJobDiscovery normal arm64 Compiling ExtensionFieldValueSet.swift (in target 'SwiftProtobuf' from project 'Pods')
+
+SwiftDriverJobDiscovery normal arm64 Compiling DoubleParser.swift (in target 'SwiftProtobuf' from project 'Pods')
+
+SwiftDriverJobDiscovery normal arm64 Compiling ExtensionFields.swift (in target 'SwiftProtobuf' from project 'Pods')
+
+** BUILD FAILED **
+
+
+The following build commands failed:
+	CompileSwift normal arm64 (in target 'DeliteAI' from project 'Pods')
+	SwiftCompile normal arm64 Compiling\ ConnectionLayer.swift,\ Constants.swift,\ DatabaseTable.swift,\ DataType.swift,\ DataTypeMismatchError.swift,\ DownloadItem.swift,\ DownloadManager.swift,\ ESpeakNGCallbacks.swift,\ FileDownloadTypes.swift,\ FileIO.swift,\ HardwareInfo.swift,\ KeychainManager.swift,\ LogConfig.swift,\ Logger.swift,\ ModelDownloadStatus.swift,\ NimbleNetApi.swift,\ NimbleNetConfig.swift,\ NimbleNetResult.swift,\ NimbleNetTensor.swift,\ ProtoAnyWrapper.swift,\ ProtoDecoder.swift,\ ProtoListwrapper.swift,\ ProtoMapWrapper.swift,\ ProtoObjectWrapper.swift,\ ProtoVisitor.swift,\ UserEventData.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/networking/ConnectionLayer.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/common/util/Constants.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/dataModels/DatabaseTable.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/dataModels/DataType.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/dataModels/DataTypeMismatchError.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/networking/dataModel/DownloadItem.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/networking/DownloadManager.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/ESpeakNGCallbacks.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/dataModel/FileDownloadTypes.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/FileIO.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/common/HardwareInfo.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/common/KeychainManager.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/logging/LogConfig.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/logging/Logger.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/networking/dataModel/ModelDownloadStatus.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/NimbleNetApi.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/dataModel/NimbleNetConfig.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/dataModel/NimbleNetResult.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/io/dataModels/NimbleNetTensor.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/delitePy/proto/impl/ProtoAnyWrapper.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/delitePy/proto/impl/ProtoDecoder.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/delitePy/proto/impl/ProtoListwrapper.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/delitePy/proto/impl/ProtoMapWrapper.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/delitePy/proto/impl/ProtoObjectWrapper.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/impl/delitePy/proto/ProtoVisitor.swift /Users/krishsharma/Downloads/deliteAI/sdks/ios/deliteAI/Classes/sources/dataModel/UserEventData.swift (in target 'DeliteAI' from project 'Pods')
+	Building workspace NimbleEdgeAssistant with scheme NimbleEdgeAssistant
+(3 failures)

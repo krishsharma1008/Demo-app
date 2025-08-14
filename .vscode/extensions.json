@@ -1,9 +1,50 @@
 {
     "recommendations": [
+        // Core project extensions
         "editorconfig.editorconfig",
         "davidanson.vscode-markdownlint",
         "charliermarsh.ruff",
         "executablebookproject.myst-highlight",
-        "github.vscode-github-actions"
+        "github.vscode-github-actions",
+        
+        // C++ development
+        "ms-vscode.cpptools",
+        "ms-vscode.cpptools-extension-pack",
+        "ms-vscode.cmake-tools",
+        "twxs.cmake",
+        "xaver.clang-format",
+        
+        // Python development
+        "ms-python.python",
+        "ms-python.pylint",
+        "ms-python.black-formatter",
+        "ms-python.isort",
+        "njpwerner.autodocstring",
+        
+        // Mobile development
+        "kotlin.kotlin",
+        "mathiasfrohlich.kotlin",
+        "ms-vscode.vscode-swift",
+        
+        // Documentation and markup
+        "trond-snekvik.simple-rst",
+        "lextudio.restructuredtext",
+        "yzhang.markdown-all-in-one",
+        
+        // Build systems and configuration
+        "ms-vscode.makefile-tools",
+        "redhat.vscode-yaml",
+        "tamasfe.even-better-toml",
+        
+        // Git and version control
+        "eamodio.gitlens",
+        "github.vscode-pull-request-github",
+        
+        // General productivity
+        "ms-vscode.vscode-json",
+        "bradlc.vscode-tailwindcss",
+        "formulahendry.code-runner",
+        "gruntfuggly.todo-tree",
+        "streetsidesoftware.code-spell-checker"
     ]
 }

@@ -23,14 +23,13 @@ Pod::Spec.new do |s|
 
   # Build Settings for Optimization
   s.pod_target_xcconfig = {
-    # Aggressive optimizations for release builds, focusing on binary size and performance.
-    'OTHER_CFLAGS'               => '-Oz -fdata-sections -ffunction-sections -flto',
-    'OTHER_LDFLAGS'              => '-Wl,--gc-sections -flto',
+    # Reasonable optimizations for stable builds
+    'OTHER_CFLAGS'               => '-O2',
     'DEAD_CODE_STRIPPING'        => 'YES',
-    'ENABLE_BITCODE'             => 'YES',
+    'ENABLE_BITCODE'             => 'NO',
     'STRIP_INSTALLED_PRODUCT'    => 'YES',
     'DEBUG_INFORMATION_FORMAT'   => 'dwarf-with-dsym',
-    'SWIFT_OPTIMIZATION_LEVEL'   => '-Osize',
+    'SWIFT_OPTIMIZATION_LEVEL'   => '-O',
     'SWIFT_COMPILATION_MODE'     => 'wholemodule'
   }
 
@@ -42,13 +41,12 @@ Pod::Spec.new do |s|
   s.public_header_files = 'deliteAI/Classes/sources/**/*.h', 'deliteAI/Classes/deliteAI.h'
 
   # Vendored Frameworks (Pre-compiled Binaries)
-  # Ensure all paths here are correct relative to your Podspec file.
+  # Note: ONNX frameworks commented out until available
   s.ios.preserve_paths = 'deliteAI/Assets/*.xcframework'
-  s.ios.vendored_frameworks = 'deliteAI/Assets/onnxruntime.xcframework',
-                              'deliteAI/Assets/nimblenet.xcframework',
-                              'deliteAI/Assets/onnxruntime-genai.xcframework',
-                              'deliteAI/Assets/onnxruntime_extensions.xcframework',
-                              'deliteAI/Assets/LLaMARunner.xcframework'
+  # s.ios.vendored_frameworks = 'deliteAI/Assets/onnxruntime.xcframework',
+  #                             'deliteAI/Assets/onnxruntime-genai.xcframework',
+  #                             'deliteAI/Assets/onnxruntime_extensions.xcframework',
+  #                             'deliteAI/Assets/LLaMARunner.xcframework'
 
   # External Dependencies
   s.dependency 'Alamofire', '~> 5.0'

@@ -1,0 +1,502 @@
+# DeliteAI Documentation Cursor Rules (docs/)
+
+These rules apply specifically to documentation development for the DeliteAI project.
+
+## Documentation System Overview
+
+DeliteAI uses a Sphinx-based documentation system with MyST Markdown for content creation. The documentation is structured to serve both the website (deliteai.dev) and GitHub repository needs.
+
+### Key Components
+- **Sphinx**: Documentation generation framework
+- **MyST Markdown**: Enhanced Markdown with reStructuredText features
+- **GitHub Pages**: Deployment platform for documentation website
+- **Multi-target Content**: Supports both website and repository rendering
+
+## Content Standards
+
+### Writing Style
+- Write in clear, concise, professional English
+- Use active voice when possible
+- Write for developers with varying experience levels
+- Include practical examples that actually work
+- Maintain consistent terminology throughout documentation
+
+### Structure Guidelines
+- Use descriptive headings with proper hierarchy (H1 → H2 → H3)
+- Include a clear table of contents for longer documents
+- Start each document with a brief overview
+- End with next steps or related resources
+- Use numbered lists for sequential steps, bullets for non-sequential items
+
+### Code Examples
+- Include complete, runnable code examples
+- Test all code examples before publishing
+- Use proper syntax highlighting for each language
+- Include expected outputs when relevant
+- Provide context for code snippets
+
+## MyST Markdown Patterns
+
+### Basic Document Structure
+```markdown
+---
+title: "Document Title"
+description: "Brief description for SEO and summaries"
+---
+
+# Document Title
+
+Brief introduction explaining what this document covers and who should read it.
+
+## Overview
+
+Detailed explanation of the topic.
+
+## Getting Started
+
+Step-by-step instructions with code examples.
+
+### Prerequisites
+
+- List of requirements
+- Links to setup guides
+- Version requirements
+
+### Installation
+
+\```bash
+# Installation commands with comments
+pip install delitepy
+\```
+
+### Basic Usage
+
+\```python
+import delitepy
+
+# Example with explanation
+client = delitepy.NimbleNetClient()
+client.initialize("config.yaml")
+\```
+
+## Advanced Topics
+
+More complex usage patterns and configuration options.
+
+## Troubleshooting
+
+Common issues and their solutions.
+
+## Next Steps
+
+- Link to related documentation
+- Advanced guides
+- API reference
+```
+
+### Cross-References and Links
+```markdown
+# Use MyST cross-references for internal links
+{doc}`../coreruntime/README`
+
+# Reference specific sections
+{ref}`installation-guide`
+
+# External links with descriptive text
+[DeliteAI GitHub Repository](https://github.com/NimbleEdge/deliteAI)
+
+# API documentation references
+{func}`delitepy.NimbleNetClient.initialize`
+```
+
+### Conditional Content
+```markdown
+<!-- DL_DOCS::WEBSITE_BLOCK_START -->
+This content only appears on the website.
+<!-- DL_DOCS::WEBSITE_BLOCK_END -->
+
+<!-- DL_DOCS::GITHUB_BLOCK_START -->
+This content only appears on GitHub.
+<!-- DL_DOCS::GITHUB_BLOCK_END -->
+```
+
+### Code Documentation
+```markdown
+# API Documentation Pattern
+## Function: initialize()
+
+\```python
+def initialize(config_path: str, options: Dict[str, Any] = None) -> bool:
+    """Initialize the DeliteAI client with configuration.
+    
+    Args:
+        config_path: Path to YAML configuration file
+        options: Optional runtime configuration overrides
+        
+    Returns:
+        True if initialization successful, False otherwise
+        
+    Raises:
+        FileNotFoundError: If config file doesn't exist
+        ValidationError: If configuration is invalid
+        
+    Example:
+        \```python
+        client = DeliteAIClient()
+        success = client.initialize("config.yaml")
+        if not success:
+            print("Initialization failed")
+        \```
+    """
+\```
+```
+
+## Platform-Specific Documentation
+
+### Android Documentation
+```markdown
+# Android SDK Integration
+
+## Gradle Setup
+
+Add to your `build.gradle.kts`:
+
+\```kotlin
+dependencies {
+    implementation("ai.delite:deliteai-android:0.1.0")
+}
+\```
+
+## Kotlin Usage
+
+\```kotlin
+import ai.delite.sdk.DeliteAIClient
+
+class MainActivity : AppCompatActivity() {
+    private lateinit var client: DeliteAIClient
+    
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        
+        client = DeliteAIClient(this)
+        lifecycleScope.launch {
+            val config = DeliteAIConfig(
+                modelPath = "models/llm.onnx"
+            )
+            client.initialize(config)
+        }
+    }
+}
+\```
+
+## Permissions
+
+Add to your `AndroidManifest.xml`:
+
+\```xml
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+\```
+```
+
+### iOS Documentation
+```markdown
+# iOS SDK Integration
+
+## CocoaPods Setup
+
+Add to your `Podfile`:
+
+\```ruby
+pod 'DeliteAI', '~> 0.1.0'
+\```
+
+## Swift Usage
+
+\```swift
+import DeliteAI
+
+class ViewController: UIViewController {
+    private let client = DeliteAIClient()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        Task {
+            let config = DeliteAIConfig(
+                modelPath: "models/llm.onnx"
+            )
+            try await client.initialize(config: config)
+        }
+    }
+}
+\```
+
+## Info.plist Configuration
+
+\```xml
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>DeliteAI requires access for AI processing</string>
+\```
+```
+
+### Python Documentation
+```markdown
+# Python Integration
+
+## Installation
+
+\```bash
+pip install delitepy
+\```
+
+## Basic Usage
+
+\```python
+import delitepy
+import asyncio
+
+async def main():
+    client = delitepy.NimbleNetClient()
+    
+    # Initialize with configuration
+    await client.initialize("config.yaml")
+    
+    # Process data
+    result = await client.process_data({
+        "text": "Hello, DeliteAI!"
+    })
+    
+    print(f"Result: {result}")
+
+if __name__ == "__main__":
+    asyncio.run(main())
+\```
+```
+
+## Configuration Documentation
+
+### YAML Configuration
+```markdown
+# Configuration Reference
+
+DeliteAI uses YAML configuration files for runtime settings.
+
+## Basic Configuration
+
+\```yaml
+# config.yaml
+model:
+  path: "models/llm.onnx"
+  max_tokens: 100
+  temperature: 0.7
+
+runtime:
+  threads: 4
+  memory_limit: "1GB"
+  
+logging:
+  level: "INFO"
+  file: "deliteai.log"
+\```
+
+## Configuration Schema
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `model.path` | string | required | Path to model file |
+| `model.max_tokens` | integer | 100 | Maximum tokens to generate |
+| `model.temperature` | float | 0.7 | Sampling temperature |
+| `runtime.threads` | integer | 4 | Number of processing threads |
+```
+
+## API Reference Format
+
+### Class Documentation
+```markdown
+# Class: DeliteAIClient
+
+Main client class for interacting with DeliteAI services.
+
+## Constructor
+
+\```python
+DeliteAIClient(config_path: str = None)
+\```
+
+**Parameters:**
+- `config_path` (str, optional): Path to configuration file
+
+## Methods
+
+### initialize()
+
+\```python
+async def initialize(config: Dict[str, Any]) -> bool
+\```
+
+Initialize the client with provided configuration.
+
+**Parameters:**
+- `config` (Dict[str, Any]): Configuration dictionary
+
+**Returns:**
+- `bool`: True if successful, False otherwise
+
+**Raises:**
+- `ConfigurationError`: If configuration is invalid
+- `InitializationError`: If initialization fails
+
+**Example:**
+\```python
+client = DeliteAIClient()
+success = await client.initialize({
+    "model_path": "path/to/model.onnx"
+})
+\```
+```
+
+## Build System Documentation
+
+### Sphinx Configuration
+The documentation uses specific Sphinx extensions and configurations:
+
+```python
+# conf.py patterns
+extensions = [
+    'myst_parser',
+    'sphinx.ext.autodoc',
+    'sphinx.ext.napoleon',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.intersphinx'
+]
+
+myst_enable_extensions = [
+    "colon_fence",
+    "deflist",
+    "html_admonition",
+    "html_image",
+    "linkify",
+    "replacements",
+    "smartquotes",
+    "substitution",
+    "tasklist"
+]
+```
+
+### Building Documentation
+```bash
+# Build documentation locally
+cd docs
+pip install -r requirements.txt
+sphinx-build -b html . _build/html
+
+# Serve locally for testing
+python -m http.server 8000 --directory _build/html
+```
+
+## Quality Guidelines
+
+### Content Review Checklist
+- [ ] All code examples are tested and working
+- [ ] Links are valid and point to correct resources
+- [ ] Screenshots are up-to-date and high quality
+- [ ] Grammar and spelling are correct
+- [ ] Technical accuracy is verified
+- [ ] Cross-platform considerations are addressed
+
+### SEO and Accessibility
+- Include descriptive alt text for images
+- Use semantic HTML structure
+- Provide clear navigation paths
+- Include meta descriptions for pages
+- Use descriptive link text (avoid "click here")
+
+### Version Management
+- Update documentation with each release
+- Maintain backwards compatibility notes
+- Include deprecation warnings with timelines
+- Document breaking changes clearly
+- Provide migration guides for major updates
+
+## Common Documentation Patterns
+
+### Tutorial Structure
+```markdown
+# Tutorial: Building Your First AI Agent
+
+## What You'll Learn
+- How to set up DeliteAI in your project
+- Creating a basic AI agent
+- Processing user input
+- Handling responses
+
+## Prerequisites
+- Python 3.8 or later
+- Basic familiarity with async/await
+- 10 minutes to complete
+
+## Step 1: Installation
+[Detailed step with code]
+
+## Step 2: Configuration
+[Next step with explanation]
+
+## Troubleshooting
+[Common issues and solutions]
+
+## Next Steps
+[Links to advanced topics]
+```
+
+### Reference Documentation
+```markdown
+# API Reference: Function Name
+
+Brief description of what the function does.
+
+## Syntax
+\```language
+function_signature()
+\```
+
+## Parameters
+Detailed parameter descriptions
+
+## Return Value
+What the function returns
+
+## Examples
+Working code examples
+
+## See Also
+Related functions and concepts
+```
+
+## Maintenance Guidelines
+
+### Regular Updates
+- Review and update documentation quarterly
+- Verify all links are still valid
+- Update screenshots and examples
+- Check for outdated information
+- Ensure consistency across all documentation
+
+### Community Contributions
+- Encourage community documentation contributions
+- Provide clear guidelines for contributors
+- Review all contributions for accuracy
+- Maintain consistent voice and style
+- Acknowledge contributors appropriately
+
+## Common Mistakes to Avoid
+
+1. **Outdated Examples**: Always test code examples before publishing
+2. **Broken Links**: Regularly audit internal and external links
+3. **Missing Context**: Provide sufficient background for all examples
+4. **Inconsistent Terminology**: Use the same terms throughout all documentation
+5. **Poor Organization**: Structure content logically with clear navigation
+6. **Missing Error Handling**: Show proper error handling in examples
+7. **Platform Assumptions**: Consider all supported platforms in examples
+
+Remember: Good documentation is crucial for developer adoption. It should be accurate, comprehensive, and easy to follow for developers of all skill levels. 

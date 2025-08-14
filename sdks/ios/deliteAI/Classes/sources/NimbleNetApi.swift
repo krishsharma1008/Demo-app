@@ -8,9 +8,9 @@ import Foundation
 import SwiftProtobuf
 
 public class NimbleNetApi{
-    
+
     private static let nimbleNetController: NimbleNetController = NimbleNetController();
-    
+
     public static func restartSession(){
         nimbleNetController.restartSession()
     }
@@ -18,7 +18,7 @@ public class NimbleNetApi{
         nimbleNetController.restartSession(withId: sessionId)
     }
     public static func initialize(config:NimbleNetConfig, assetsJson: [[String: Any]]? = nil)->NimbleNetResult<Void>{
-        
+
         var config = config
         var res:NSDictionary
         do {
@@ -26,7 +26,10 @@ public class NimbleNetApi{
             let jsonData = try encoder.encode(config)
             if let jsonString = String(data: jsonData, encoding: .utf8) {
                 if (config.online) {
-                    res = nimbleNetController.initialize_nimblenet_controller(jsonString, assetsJson: nil)! as NSDictionary
+                    guard let controllerResult = nimbleNetController.initialize_nimblenet_controller(jsonString, assetsJson: nil) as? NSDictionary else {
+                        return populateNimbleNetResultWithError(errorCode: 5000, errorMessage: "Failed to initialize nimblenet controller")
+                    }
+                    res = controllerResult
                     return NimbleNetResult<Void>(data: NSDictionary(dictionary: res))
                 } else {
                     if (assetsJson == nil) {
@@ -49,42 +52,45 @@ public class NimbleNetApi{
                     }
 
                     // Call the controller with both JSON strings
-                    res = nimbleNetController.initialize_nimblenet_controller(jsonString, assetsJson: modifiedAssetsJsonString)! as NSDictionary
+                    guard let controllerResult = nimbleNetController.initialize_nimblenet_controller(jsonString, assetsJson: modifiedAssetsJsonString) as? NSDictionary else {
+                        return populateNimbleNetResultWithError(errorCode: 5000, errorMessage: "Failed to initialize nimblenet controller with assets")
+                    }
+                    res = controllerResult
                     return NimbleNetResult<Void>(data: NSDictionary(dictionary: res))
                 }
-                
+
             }
             else{
                 return populateNimbleNetResultWithError(errorCode: 5000, errorMessage: "invalid nimblenet config")
-                
+
             }
         } catch {
             return populateNimbleNetResultWithError(errorCode: 5000, errorMessage: "exception: initNimbleNet \(error)")
         }
-        
+
     }
-    
+
     public static func initialize(config:String, assetsJson: [[String: Any]]?) -> NimbleNetResult<Void>{
-        
+
         if let jsonData = config.data(using: .utf8) {
             do {
-                
+
                 let nimbleNetConfig = try JSONDecoder().decode(NimbleNetConfig.self, from: jsonData)
-                
+
                 return initialize(config: nimbleNetConfig, assetsJson: assetsJson)
-                
+
             } catch {
                 return populateNimbleNetResultWithError(errorCode: 5000, errorMessage: "exception: initNimbleNet \(error)")
             }
         }
         else{
             return populateNimbleNetResultWithError(errorCode: 5000, errorMessage: "invalid nimblenet config json")
-            
+
         }
     }
-        
+
     public static func addEvent(events: [String: Any], eventType: String) -> NimbleNetResult<UserEventdata> {
-        
+
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: events, options: .prettyPrinted)
             if let jsonString = String(data: jsonData, encoding: .utf8) {
@@ -96,16 +102,16 @@ public class NimbleNetApi{
             }
         } catch {
             return populateNimbleNetResultWithError(errorCode: 5000, errorMessage: "exception: addEvent \(error)")
-            
+
         }
     }
-    
+
     public static func addEvent(eventString: String, eventType: String) -> NimbleNetResult<UserEventdata> {
         let res = nimbleNetController.add_event_controller(eventString, eventType:eventType)!
         return NimbleNetResult<UserEventdata>(data: NSDictionary(dictionary:res))
 
     }
-  
+
     public static func isReady() -> NimbleNetResult<Unit>
     {
         do{
@@ -114,12 +120,12 @@ public class NimbleNetApi{
         }
         catch{
             return populateNimbleNetResultWithError(errorCode: 5000, errorMessage: "exception: isReady \(error)")
-            
+
         }
     }
-    
+
     public static func runMethod(methodName: String, inputs: [String: NimbleNetTensor]) -> NimbleNetResult<NimbleNetOutput> {
-        
+
         do {
             try verifyUserInputs(inputs: inputs)
         } catch let error as DataTypeMismatchError {
@@ -150,7 +156,7 @@ public class NimbleNetApi{
             var shape:[Int] = []
             inputDict[key] = convertToDictionary(value)
         }
-        
+
         var res = nimbleNetController.run_task_controller(methodName,modelInputsWithShape: inputDict)!
 
         if var dataDict = res["data"] as? [String: Any],
@@ -176,7 +182,7 @@ public class NimbleNetApi{
         }
 
         return NimbleNetResult<NimbleNetOutput>(data: NSDictionary(dictionary: res))
-        
+
         func convertToDictionary(_ input: NimbleNetTensor) -> [String: Any] {
             if(input.datatype.rawValue == DataType.FE_OBJ.rawValue){
                 var message = input.data as! (Message & _ProtoNameProviding)
@@ -193,7 +199,7 @@ public class NimbleNetApi{
                 "shape": input.shape
             ]
         }
-        
+
     }
 
     //utils
@@ -201,27 +207,27 @@ public class NimbleNetApi{
         guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             fatalError("Failed to get documents directory.")
         }
-        
+
         let folderName = "nimbleSDK"
         let folderURL = documentsDirectory.appendingPathComponent(folderName)
-        
+
         do {
             try FileManager.default.createDirectory(at: folderURL, withIntermediateDirectories: true, attributes: nil)
             print("Folder created successfully at path: \(folderURL.path)")
         } catch {
             print("Error creating folder: \(error.localizedDescription)")
         }
-        
+
         return folderURL.path
     }
-    
+
     private static func convertToVoidPointer<T>(_ value: T) -> UnsafeMutableRawPointer {
         let pointer = UnsafeMutablePointer<T>.allocate(capacity: 1)
         pointer.initialize(to: value)
         return UnsafeMutableRawPointer(pointer)
     }
-    
-    
+
+
     private static func populateNimbleNetResultWithError<T>(errorCode:Int,errorMessage:String) -> NimbleNetResult<T>{
         let dict: NSDictionary = [
             "status": false,
@@ -233,7 +239,7 @@ public class NimbleNetApi{
         ]
         return NimbleNetResult<T>(data: dict)
     }
-    
+
 }
 
 
@@ -252,7 +258,7 @@ func verifyUserInputs(inputs: [String: NimbleNetTensor]) throws {
             if (shape.isEmpty) {
                 throw DataTypeMismatchError.invalidShapeArray
             }
-            
+
             var shapeLength = 1
             for value in shape {
                 shapeLength *= value
@@ -263,7 +269,7 @@ func verifyUserInputs(inputs: [String: NimbleNetTensor]) throws {
                 throw DataTypeMismatchError.invalidShapeArray
             }
 
-        }        
+        }
 
         func validateSingular(expectedType: DataType) throws {
             if modelInput.datatype != expectedType {

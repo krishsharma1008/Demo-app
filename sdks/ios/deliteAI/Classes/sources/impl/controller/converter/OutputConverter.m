@@ -6,8 +6,8 @@
 
 #import <Foundation/Foundation.h>
 #import <DeliteAI/DeliteAI-Swift.h>
-#import "nimblejson.hpp"
-#import "executor_structs.h"
+#import "../include/nimblejson.hpp"
+#import "../include/executor_structs.h"
 #import "OutputConverter.h"
 #import "ErrorUtility.h"
 
@@ -28,17 +28,17 @@ id castDataFromCTensor(CTensor *tensor){
             bool castedData = *(bool *)tensor->data;
             return @(castedData);
         }
-            
+
         case FLOAT: {
             float castedData = *(float *)tensor->data;
             return @(castedData);
         }
-            
+
         case DOUBLE: {
             double castedData = *(double *)tensor->data;
             return @(castedData);
         }
-            
+
         case INT64: {
             int64_t castedData = *(int64_t *)tensor->data;
             return @(castedData);
@@ -67,17 +67,23 @@ id castDataFromCTensor(CTensor *tensor){
 NSDictionary* convertCTensorsToNSDictionary(NimbleNetStatus* status,CTensors ctensors, void* json_alloc) {
     NSDictionary *resultDict = [NSMutableDictionary dictionary];
     NSDictionary *outputsTensorDict= [NSMutableDictionary dictionary];
-    
-    
+
+
     if(status==NULL){
         for (int i = 0; i < ctensors.numTensors; i++) {
             CTensor tensor = ctensors.tensors[i];
+
+            // Guard against null tensor name
+            if (tensor.name == NULL) {
+                NSLog(@"⚠️ Warning: Tensor at index %d has a null name. Skipping.", i);
+                continue;
+            }
             NSString *name = [NSString stringWithUTF8String:tensor.name];
-            
+
             int dataLength = tensor.shapeLength;
             NSMutableArray *shape = [NSMutableArray array];
             int totalArrayLength = 1;
-            
+
             for (int j = 0; j < tensor.shapeLength; j++) {
                 [shape addObject:@(tensor.shape[j])];
                 totalArrayLength*=tensor.shape[j];
@@ -96,31 +102,31 @@ NSDictionary* convertCTensorsToNSDictionary(NimbleNetStatus* status,CTensors cte
                         data = @(castedData);
                         break;
                     }
-                        
+
                     case BOOLEAN: {
                         bool castedData = *(bool *)tensor.data;
                         data = @(castedData);
                         break;
                     }
-                        
+
                     case FLOAT: {
                         float castedData = *(float *)tensor.data;
                         data = @(castedData);
                         break;
                     }
-                        
+
                     case DOUBLE: {
                         double castedData = *(double *)tensor.data;
                         data = @(castedData);
                         break;
                     }
-                        
+
                     case INT64: {
                         int64_t castedData = *(int64_t *)tensor.data;
                         data = @(castedData);
                         break;
                     }
-                        
+
                     case JSON: {
                         void *jsonIterator = create_json_iterator(tensor.data, json_alloc);
                         NSDictionary *dict = convertvoidPointertoJsonObject(jsonIterator, json_alloc);
@@ -151,18 +157,18 @@ NSDictionary* convertCTensorsToNSDictionary(NimbleNetStatus* status,CTensors cte
                                 break;
                             }
                         }
-                        
+
                         break;
                 }
-                        
+
                     default: {
                         data = [NSNull null];
                         return populateErrorReturnObject(5000, @"Output type not supported");
                         break;
                     }
                 }
-                
-                
+
+
             }
             else{
                 NSMutableArray *dataArray = [NSMutableArray array];
@@ -173,14 +179,14 @@ NSDictionary* convertCTensorsToNSDictionary(NimbleNetStatus* status,CTensors cte
                             if (castedArrayData[j] != NULL) {
                                 NSString *string = [NSString stringWithUTF8String:castedArrayData[j]];
                                 [dataArray addObject:string ?: [NSNull null]];
-                                
+
                             } else {
                                 [dataArray addObject:[NSNull null]];
                             }
                         }
                         break;
                     }
-                        
+
                     case INT32:{
                         int* castedArrayData = (int *)tensor.data;
                         for (int j = 0; j < totalArrayLength; j++) {
@@ -188,7 +194,7 @@ NSDictionary* convertCTensorsToNSDictionary(NimbleNetStatus* status,CTensors cte
                         }
                         break;
                     }
-                        
+
                     case BOOLEAN:{
                         bool* castedArrayData = (bool *)tensor.data;
                         for (int j = 0; j < totalArrayLength; j++) {
@@ -196,7 +202,7 @@ NSDictionary* convertCTensorsToNSDictionary(NimbleNetStatus* status,CTensors cte
                         }
                         break;
                     }
-                        
+
                     case FLOAT:{
                         float* castedArrayData = (float *)tensor.data;
                         for (int j = 0; j < totalArrayLength; j++) {
@@ -218,22 +224,22 @@ NSDictionary* convertCTensorsToNSDictionary(NimbleNetStatus* status,CTensors cte
                         }
                         break;
                     }
-                        
+
                     case JSON_ARRAY:{
                         void* jsonIterator = create_json_iterator(tensor.data,json_alloc);
                         NSArray* jsonArray = convertvoidPointertoJSONArray(jsonIterator, json_alloc);
                         [dataArray addObject:jsonArray];
                         break;
                     }
-                        
+
                     default:
                         return populateErrorReturnObject(5000, @"Output type not supported");
                 }
                 data = dataArray;
             }
-            
+
             NSNumber *dataType = @(tensor.dataType);
-            
+
             NSDictionary *tensorData = @{
                 @"data": data,
                 @"shape": shape,
@@ -241,9 +247,9 @@ NSDictionary* convertCTensorsToNSDictionary(NimbleNetStatus* status,CTensors cte
             };
             [outputsTensorDict setValue:tensorData forKey:name];
         }
-        
+
     }
-    
+
     resultDict = @{
         @"status":@(status==NULL?true:false),
         @"data":status!=NULL?[NSNull null]:@{
@@ -255,21 +261,21 @@ NSDictionary* convertCTensorsToNSDictionary(NimbleNetStatus* status,CTensors cte
             @"message":@(status->message)
         }
     };
-    
-    
+
+
     return [resultDict copy];
 }
 
 NSMutableArray* convertvoidPointertoJSONArray( void* jsonIterator, void* json_alloc){
     NSMutableArray *resultArray = [NSMutableArray array];
-    
+
     while(true){
-        
+
         JsonOutput* nextElement = get_next_json_element(jsonIterator,json_alloc);
         if (nextElement->isEnd) {
             return resultArray;
         }
-        
+
         switch (nextElement->dataType) {
             case STRING: {
                 const char* stringValue = nextElement->value.s;
@@ -277,7 +283,7 @@ NSMutableArray* convertvoidPointertoJSONArray( void* jsonIterator, void* json_al
                 [resultArray addObject:value];
                 break;
             }
-                
+
             case DOUBLE: {
                 double doubleValue = nextElement->value.d;
                 [resultArray addObject:@(doubleValue)];
@@ -309,23 +315,23 @@ NSMutableArray* convertvoidPointertoJSONArray( void* jsonIterator, void* json_al
                 break;
             }
         }
-        
+
     }
-    
+
     return resultArray;
 }
 
 NSDictionary* convertvoidPointertoJsonObject(void* jsonIterator, void* json_alloc){
     NSMutableDictionary *resultDict = [NSMutableDictionary dictionary];
-    
+
     while(true){
-        
+
         JsonOutput* nextElement = get_next_json_element(jsonIterator,json_alloc);
         if (nextElement->isEnd) {
             return resultDict;
         }
-        
-        
+
+
         const char* keyPointer = nextElement->key;
         NSString *key = [NSString stringWithUTF8String:keyPointer];
         switch (nextElement->dataType) {
@@ -335,13 +341,13 @@ NSDictionary* convertvoidPointertoJsonObject(void* jsonIterator, void* json_allo
                 resultDict[key] = value;
                 break;
             }
-                
+
             case BOOLEAN: {
                 bool boolValue = nextElement->value.b;
                 resultDict[key] = @(boolValue);
                 break;
             }
-                
+
             case DOUBLE: {
                 double doubleValue = nextElement->value.d;
                 resultDict[key] = @(doubleValue);
@@ -369,9 +375,9 @@ NSDictionary* convertvoidPointertoJsonObject(void* jsonIterator, void* json_allo
             }
         }
     }
-    
+
     return resultDict;
-    
+
 }
 
 @end

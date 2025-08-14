@@ -1,0 +1,225 @@
+# DeliteAI C++ Cursor Rules (coreruntime/)
+
+These rules apply specifically to C++ development in the DeliteAI coreruntime components.
+
+## C++ Code Standards
+
+### Style Guide
+- Follow Google C++ Style Guide enforced by .clang-format
+- Use 2-space indentation
+- Keep line length under 100 characters
+- Use descriptive variable and function names
+- Prefer const-correctness throughout
+
+### Modern C++ Features
+- Use C++17/20 features where appropriate
+- Prefer `auto` for type deduction when it improves readability
+- Use `constexpr` for compile-time constants
+- Use structured bindings for multiple return values
+- Prefer range-based for loops
+
+### Memory Management
+- Use RAII consistently
+- Prefer smart pointers over raw pointers
+- Use `std::unique_ptr` for single ownership
+- Use `std::shared_ptr` only when shared ownership is necessary
+- Avoid `std::weak_ptr` unless breaking circular references
+
+### Header Files
+- Use include guards or `#pragma once`
+- Keep includes minimal and specific
+- Forward declare types when possible
+- Order includes: C++ standard library, third-party, local headers
+- Use angle brackets for system includes, quotes for local includes
+
+## DeliteAI-Specific Patterns
+
+### Error Handling
+- Use exceptions for error conditions that can't be ignored
+- Create custom exception types inheriting from `std::exception`
+- Include meaningful error messages with context
+- Document exception specifications in function comments
+
+### Threading & Concurrency
+- Use `std::thread` for threading primitives
+- Prefer `std::atomic` for simple atomic operations
+- Use `std::mutex` and RAII lock guards
+- Consider using the SPSCQueue for high-performance messaging
+
+### JSON Integration
+- Use nlohmann/json library consistently
+- Create to_json/from_json functions for custom types
+- Handle JSON parsing errors gracefully
+- Validate JSON structure before processing
+
+### CMake Integration
+- Add new source files to appropriate CMakeLists.txt
+- Use target-based CMake commands
+- Respect existing build flags and options
+- Test on all supported platforms
+
+## Architecture Patterns
+
+### Core Components
+- **Command Center**: Central coordination and control
+- **Asset Manager**: Resource and asset management
+- **Job Scheduler**: Task execution and scheduling
+- **Data Variable**: Flexible data type system
+- **Stream**: Data flow and processing pipelines
+
+### Platform Abstraction
+- Use platform-specific directories (android/, ios/, unix/)
+- Implement common interfaces for platform-specific functionality
+- Keep platform code minimal and focused
+- Use preprocessor conditionals sparingly
+
+### Database Integration
+- Use SQLite3 for local storage
+- Implement proper transaction handling
+- Create prepared statements for performance
+- Handle database migrations carefully
+
+## Performance Considerations
+
+### Mobile Optimization
+- Minimize memory allocations in hot paths
+- Use move semantics to avoid unnecessary copies
+- Prefer stack allocation over heap when possible
+- Profile memory usage regularly
+
+### Algorithm Efficiency
+- Choose appropriate data structures for use cases
+- Use STL algorithms instead of hand-written loops
+- Consider cache locality in data structure design
+- Optimize for common cases
+
+### Profiling & Debugging
+- Include debug symbols in debug builds
+- Use conditional compilation for debug code
+- Implement proper logging with levels
+- Add performance instrumentation where needed
+
+## Testing Guidelines
+
+### Unit Testing
+- Write tests for all public interfaces
+- Test edge cases and error conditions
+- Use Google Test framework consistently
+- Mock external dependencies appropriately
+
+### Integration Testing
+- Test component interactions
+- Verify cross-platform behavior
+- Test with real mobile constraints
+- Include performance regression tests
+
+## Code Examples
+
+### Proper Header Structure
+```cpp
+#pragma once
+
+#include <memory>
+#include <string>
+#include <vector>
+
+#include "nlohmann/json.hpp"
+
+#include "asset_manager.hpp"
+#include "ne_fwd.hpp"
+
+namespace deliteai {
+
+class ComponentName {
+public:
+    explicit ComponentName(std::string name);
+    ~ComponentName() = default;
+    
+    // Non-copyable, movable
+    ComponentName(const ComponentName&) = delete;
+    ComponentName& operator=(const ComponentName&) = delete;
+    ComponentName(ComponentName&&) = default;
+    ComponentName& operator=(ComponentName&&) = default;
+    
+    void ProcessData(const nlohmann::json& input);
+    
+private:
+    std::string name_;
+    std::unique_ptr<AssetManager> asset_manager_;
+};
+
+} // namespace deliteai
+```
+
+### Error Handling Pattern
+```cpp
+class DeliteAIException : public std::exception {
+public:
+    explicit DeliteAIException(std::string message) 
+        : message_(std::move(message)) {}
+    
+    const char* what() const noexcept override {
+        return message_.c_str();
+    }
+    
+private:
+    std::string message_;
+};
+
+void ProcessResource(const std::string& path) {
+    if (path.empty()) {
+        throw DeliteAIException("Resource path cannot be empty");
+    }
+    
+    // Process resource...
+}
+```
+
+### JSON Integration Pattern
+```cpp
+struct ModelConfig {
+    std::string model_path;
+    int max_tokens;
+    float temperature;
+};
+
+void to_json(nlohmann::json& j, const ModelConfig& config) {
+    j = nlohmann::json{
+        {"model_path", config.model_path},
+        {"max_tokens", config.max_tokens},
+        {"temperature", config.temperature}
+    };
+}
+
+void from_json(const nlohmann::json& j, ModelConfig& config) {
+    j.at("model_path").get_to(config.model_path);
+    j.at("max_tokens").get_to(config.max_tokens);
+    j.at("temperature").get_to(config.temperature);
+}
+```
+
+## Common Mistakes to Avoid
+
+1. **Raw Pointer Usage**: Prefer smart pointers for automatic memory management
+2. **Missing const-correctness**: Mark methods const when they don't modify state
+3. **Exception Safety**: Ensure RAII and exception safety in all code paths
+4. **Platform Assumptions**: Don't assume specific platform behaviors
+5. **Memory Leaks**: Always pair allocations with deallocations
+6. **Thread Safety**: Consider thread safety in all shared components
+7. **Header Dependencies**: Minimize header inclusion to reduce compile times
+
+## Build System Integration
+
+### CMake Best Practices
+- Use target_sources() for adding files
+- Respect existing compiler flags
+- Add platform-specific sources conditionally
+- Include proper dependency management
+
+### Third-Party Dependencies
+- Use existing third-party libraries when possible
+- Document new dependencies clearly
+- Ensure cross-platform compatibility
+- Consider licensing implications
+
+Remember: The C++ coreruntime is the foundation for all platform SDKs. Every line of code affects performance and reliability across all platforms. 

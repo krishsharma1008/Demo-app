@@ -1,0 +1,384 @@
+# DeliteAI Python Cursor Rules (agents/, nimblenet_py/, delitepy/)
+
+These rules apply specifically to Python development in DeliteAI agents, Python bindings, and simulation framework.
+
+## Python Code Standards
+
+### Style Guide
+- Follow PEP 8 style guide (enforced by ruff configuration)
+- Use 4-space indentation (no tabs)
+- Keep line length under 88 characters (Black compatible)
+- Use meaningful variable and function names
+- Follow snake_case for variables and functions, PascalCase for classes
+
+### Type Hints
+- Use type hints for all function signatures
+- Import types from `typing` or use built-in generics (Python 3.9+)
+- Use `Optional[T]` for nullable types
+- Use `Union[T, U]` for multiple possible types
+- Use `List[T]`, `Dict[K, V]` for collections with type parameters
+
+### Documentation
+- Include docstrings for all public functions and classes
+- Use Google-style docstrings consistently
+- Document parameters, return values, and exceptions
+- Include usage examples for complex functions
+
+## DeliteAI-Specific Patterns
+
+### Agent Development
+- Inherit from base agent classes when available
+- Implement standard agent interfaces consistently
+- Use proper logging throughout agent lifecycle
+- Handle agent state management properly
+
+### DelitePy Integration
+- Import delitepy modules properly: `import delitepy`
+- Handle C++ exceptions from Python bindings gracefully
+- Use proper data conversion between Python and C++ types
+- Test Python binding functionality thoroughly
+
+### Configuration Management
+- Use YAML or JSON for configuration files
+- Validate configuration parameters on startup
+- Provide sensible defaults for all optional parameters
+- Document configuration schema clearly
+
+### Error Handling
+- Use custom exception classes inheriting from built-in exceptions
+- Include context information in error messages
+- Log errors appropriately before re-raising
+- Handle both expected and unexpected errors gracefully
+
+## Architecture Patterns
+
+### Agent Structure
+```python
+from typing import Dict, Any, Optional
+import logging
+from pathlib import Path
+
+class BaseAgent:
+    """Base class for DeliteAI agents."""
+    
+    def __init__(self, config: Dict[str, Any]) -> None:
+        """Initialize agent with configuration.
+        
+        Args:
+            config: Agent configuration dictionary
+            
+        Raises:
+            ValueError: If configuration is invalid
+        """
+        self.config = config
+        self.logger = logging.getLogger(self.__class__.__name__)
+        self._validate_config()
+    
+    def _validate_config(self) -> None:
+        """Validate agent configuration."""
+        required_keys = ["model_path", "output_dir"]
+        for key in required_keys:
+            if key not in self.config:
+                raise ValueError(f"Missing required config key: {key}")
+    
+    async def process(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Process input data and return results.
+        
+        Args:
+            input_data: Input data to process
+            
+        Returns:
+            Processed results dictionary
+            
+        Raises:
+            ProcessingError: If processing fails
+        """
+        raise NotImplementedError("Subclasses must implement process method")
+```
+
+### DelitePy Binding Usage
+```python
+import delitepy
+from typing import List, Dict, Any
+import logging
+
+class DelitePyClient:
+    """Client for interacting with DeliteAI core runtime."""
+    
+    def __init__(self, config_path: str) -> None:
+        """Initialize DelitePy client.
+        
+        Args:
+            config_path: Path to configuration file
+        """
+        self.client = delitepy.NimbleNetClient()
+        self.logger = logging.getLogger(__name__)
+        
+        try:
+            self.client.initialize(config_path)
+            self.logger.info("DelitePy client initialized successfully")
+        except Exception as e:
+            self.logger.error(f"Failed to initialize DelitePy client: {e}")
+            raise
+    
+    def execute_task(self, task_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Execute a task using DelitePy.
+        
+        Args:
+            task_data: Task configuration and input data
+            
+        Returns:
+            Task execution results
+            
+        Raises:
+            ExecutionError: If task execution fails
+        """
+        try:
+            result = self.client.run_task(task_data)
+            return result
+        except Exception as e:
+            self.logger.error(f"Task execution failed: {e}")
+            raise ExecutionError(f"Failed to execute task: {e}") from e
+```
+
+### Async/Await Patterns
+```python
+import asyncio
+from typing import List, Dict, Any
+import aiofiles
+
+class AsyncAgent:
+    """Agent with asynchronous processing capabilities."""
+    
+    async def process_batch(self, inputs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """Process multiple inputs concurrently.
+        
+        Args:
+            inputs: List of input data dictionaries
+            
+        Returns:
+            List of processed results
+        """
+        tasks = [self.process_single(input_data) for input_data in inputs]
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+        
+        # Handle any exceptions that occurred
+        processed_results = []
+        for i, result in enumerate(results):
+            if isinstance(result, Exception):
+                self.logger.error(f"Failed to process input {i}: {result}")
+                processed_results.append({"error": str(result)})
+            else:
+                processed_results.append(result)
+        
+        return processed_results
+    
+    async def process_single(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Process a single input asynchronously."""
+        # Simulate async processing
+        await asyncio.sleep(0.1)
+        return {"processed": True, "input": input_data}
+```
+
+## Testing Guidelines
+
+### Unit Testing
+- Use pytest as the testing framework
+- Write tests for all public APIs
+- Use fixtures for common test setup
+- Mock external dependencies appropriately
+- Test both success and error cases
+
+### Test Structure
+```python
+import pytest
+from unittest.mock import Mock, patch
+from your_agent import YourAgent
+
+class TestYourAgent:
+    """Test suite for YourAgent class."""
+    
+    @pytest.fixture
+    def mock_config(self) -> Dict[str, Any]:
+        """Provide mock configuration for testing."""
+        return {
+            "model_path": "/path/to/model",
+            "output_dir": "/tmp/output",
+            "max_tokens": 100
+        }
+    
+    @pytest.fixture
+    def agent(self, mock_config: Dict[str, Any]) -> YourAgent:
+        """Create agent instance for testing."""
+        return YourAgent(mock_config)
+    
+    def test_initialization_success(self, mock_config: Dict[str, Any]) -> None:
+        """Test successful agent initialization."""
+        agent = YourAgent(mock_config)
+        assert agent.config == mock_config
+    
+    def test_initialization_missing_config(self) -> None:
+        """Test agent initialization with missing config."""
+        with pytest.raises(ValueError, match="Missing required config key"):
+            YourAgent({})
+    
+    @pytest.mark.asyncio
+    async def test_process_success(self, agent: YourAgent) -> None:
+        """Test successful processing."""
+        input_data = {"text": "Hello, world!"}
+        result = await agent.process(input_data)
+        
+        assert "processed" in result
+        assert result["processed"] is True
+```
+
+## Performance Considerations
+
+### Memory Management
+- Use generators for large data processing
+- Implement proper cleanup in __del__ methods when needed
+- Monitor memory usage with tools like memory_profiler
+- Use appropriate data structures for performance
+
+### Async Programming
+- Use asyncio for I/O-bound operations
+- Implement proper exception handling in async code
+- Use async context managers for resource management
+- Avoid blocking operations in async functions
+
+### Profiling & Optimization
+```python
+import cProfile
+import pstats
+from functools import wraps
+
+def profile_function(func):
+    """Decorator to profile function performance."""
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        profiler = cProfile.Profile()
+        profiler.enable()
+        
+        try:
+            result = func(*args, **kwargs)
+        finally:
+            profiler.disable()
+            stats = pstats.Stats(profiler)
+            stats.sort_stats('cumulative')
+            stats.print_stats(10)  # Print top 10 functions
+        
+        return result
+    return wrapper
+```
+
+## Package Management
+
+### Virtual Environments
+- Always use virtual environments for development
+- Include requirements.txt with pinned versions
+- Use requirements-dev.txt for development dependencies
+- Document environment setup in README files
+
+### Dependency Management
+- Pin major versions for stability
+- Use compatible release specifiers when appropriate
+- Audit dependencies regularly for security issues
+- Keep dependencies minimal and well-justified
+
+### Distribution
+- Use setuptools or pyproject.toml for packaging
+- Include proper metadata and classifiers
+- Test installation in clean environments
+- Follow semantic versioning for releases
+
+## Common Patterns
+
+### Configuration Loading
+```python
+from pathlib import Path
+import yaml
+from typing import Dict, Any
+
+def load_config(config_path: str) -> Dict[str, Any]:
+    """Load configuration from YAML file.
+    
+    Args:
+        config_path: Path to configuration file
+        
+    Returns:
+        Configuration dictionary
+        
+    Raises:
+        FileNotFoundError: If config file doesn't exist
+        yaml.YAMLError: If config file is invalid YAML
+    """
+    config_file = Path(config_path)
+    if not config_file.exists():
+        raise FileNotFoundError(f"Configuration file not found: {config_path}")
+    
+    try:
+        with open(config_file, 'r', encoding='utf-8') as f:
+            return yaml.safe_load(f)
+    except yaml.YAMLError as e:
+        raise yaml.YAMLError(f"Invalid YAML in config file: {e}") from e
+```
+
+### Logging Setup
+```python
+import logging
+import logging.config
+from pathlib import Path
+
+def setup_logging(log_level: str = "INFO", log_file: Optional[str] = None) -> None:
+    """Setup logging configuration.
+    
+    Args:
+        log_level: Logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+        log_file: Optional file path for log output
+    """
+    config = {
+        "version": 1,
+        "disable_existing_loggers": False,
+        "formatters": {
+            "standard": {
+                "format": "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+            },
+        },
+        "handlers": {
+            "console": {
+                "class": "logging.StreamHandler",
+                "level": log_level,
+                "formatter": "standard",
+                "stream": "ext://sys.stdout"
+            }
+        },
+        "root": {
+            "level": log_level,
+            "handlers": ["console"]
+        }
+    }
+    
+    if log_file:
+        config["handlers"]["file"] = {
+            "class": "logging.FileHandler",
+            "level": log_level,
+            "formatter": "standard",
+            "filename": log_file,
+            "mode": "a"
+        }
+        config["root"]["handlers"].append("file")
+    
+    logging.config.dictConfig(config)
+```
+
+## Common Mistakes to Avoid
+
+1. **Missing Type Hints**: Always include type hints for function signatures
+2. **Poor Error Handling**: Catch specific exceptions, not bare except clauses
+3. **Blocking Async Code**: Don't use blocking operations in async functions
+4. **Memory Leaks**: Properly clean up resources and break circular references
+5. **Missing Documentation**: Include docstrings for all public APIs
+6. **Hard-coded Paths**: Use configuration files or environment variables
+7. **Ignoring PEP 8**: Follow Python style guidelines consistently
+
+Remember: Python code in DeliteAI serves as the high-level interface for AI agents and workflows. Keep it clean, well-documented, and performant. 
