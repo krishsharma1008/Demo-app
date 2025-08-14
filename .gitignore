@@ -15,3 +15,7 @@ NimbleEdgeAssistant.app/**/Assets/Models/**
 
 # Secrets
 .env
+
+# Editor-specific files
+.cursorrules*
+CURSOR_RULES.md
